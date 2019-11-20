@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import App from './main/app2'
 import './styles/custom.css'
 
 ReactDOM.render(
-    <h1>Olá</h1>
+    <App />
 , document.getElementById('app'))
