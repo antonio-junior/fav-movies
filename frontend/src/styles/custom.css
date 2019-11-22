@@ -1,3 +1,40 @@
 h1 {
     font-weight: bold;
 }
+
+.contentWrapper {
+    margin: 40px 16px;
+}
+
+.movieCard {
+    max-width: 280px;
+    display: inline-grid;
+    margin: 10px;
+}
+
+.MuiCardActions-spacing {
+    background-color: aliceblue;
+    height: 40px;
+    cursor: pointer;
+}
+
+.MuiCardActions-spacing:hover {
+    background-color: antiquewhite;
+}
+
+.redIcon {
+    fill: red !important;
+}
+
+.MuiCardMedia-img {
+    object-position: top;
+}
+
+.h2-movie{
+    font-size: 17px !important;
+    text-align: center;
+}
+
+.MuiCardContent-root {
+    height: 70px;
+}
