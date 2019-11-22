@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
-
 import MovieCard from '../components/movieCard'
 
 class MainContent extends Component {
@@ -38,7 +36,7 @@ class MainContent extends Component {
     }
 
     fetchAllMovies(term) {
-        axios.get(`http://www.omdbapi.com/?apikey=471a8a8a&s=/${term}`)
+        axios.get(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=/${term}`)
             .then(res => {
                 const movies = res.data.Search;
                 this.setState({ term, movies });

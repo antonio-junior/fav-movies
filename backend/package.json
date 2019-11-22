@@ -1,0 +1,29 @@
+{
+  "name": "backend",
+  "description": "",
+  "version": "1.0.0",
+  "license": "ISC",
+  "author": "Antônio Junior <acsjunior1@gmail.com>",
+  "main": "src/loader.js",
+  "scripts": {
+    "dev": "nodemon",
+    "production": "pm2 start src/loader.js --name fav-movies-backend"
+  },
+  "keywords": [],
+  "engines": {
+    "node": ">= 4.4.7",
+    "npm": ">= 2.15.8"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.7.12",
+    "node-restful": "^0.2.6",
+    "pm2": "^4.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.0"
+  }
+}
