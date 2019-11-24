@@ -8,9 +8,9 @@ const movieSchema = new mongoose.Schema({
     title: { type: String, required: true },
     year: { type: Number, required: true },
     //genre: { type: Array, required: true },
-    country: { type: String, required: true },
+    country: { type: String, required: false },
     poster: { type: String, required: true },
-    imdbID: { type: String, required: true },
+    imdbid: { type: String, required: true },
 })
 
 module.exports = restful.model('movies', movieSchema)

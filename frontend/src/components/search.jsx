@@ -12,20 +12,21 @@ class Search extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { term: ''} ;
+        this.state = { term: '' };
     }
 
     render() {
         return (
             <React.Fragment>
                 <Grid item>
-                    <SearchIcon  color="inherit" />
+                    <SearchIcon color="inherit" />
                 </Grid>
                 <Grid item xs>
                     <TextField
                         fullWidth
                         placeholder="Search by title"
-                        onChange={(e) => this.setState({term: e.target.value})}
+                        onChange={(e) => this.setState({ term: e.target.value })}
+                        onKeyPress={(e) => this.keyPress(e)}
                     />
                 </Grid>
                 <Grid item>
@@ -36,8 +37,14 @@ class Search extends Component {
             </React.Fragment>
         );
     }
+
+    keyPress(e) {
+        if (e.key === 'Enter') {
+            this.props.clickSearch(this.state.term)
+        }
+    }
 }
 
-const mapStateToProps = state => ({search : state.search})
-const mapDispatchToProps = dispatch => bindActionCreators({clickSearch}, dispatch)
+const mapStateToProps = state => ({ search: state.search })
+const mapDispatchToProps = dispatch => bindActionCreators({ clickSearch }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Search)
