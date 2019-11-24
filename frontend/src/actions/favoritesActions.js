@@ -1,8 +1,9 @@
 import axios from 'axios'
+import consts from '../consts'
 
 export function fetchFavorites() {
     return dispatch => {
-        axios.get(`http://localhost:3003/api/favmovies`)
+        axios.get(`${consts.FAV_MOVIES_URL}/favmovies`)
             .then(resp => {
                 dispatch({ type: "FETCH_FAVORITES", payload: resp.data });
             }).catch(err => {

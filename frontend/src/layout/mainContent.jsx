@@ -44,7 +44,7 @@ class MainContent extends Component {
     }
 
     fetchAllMovies(term) {
-        axios.get(`http://www.omdbapi.com/?apikey=471a8a8a&s=/${term}`).then(res => {
+        axios.get(`http://www.omdbapi.com/?apikey=${process.env.API_KEY}&s=/${term}`).then(res => {
             const movies = res.data.Search;
             this.setState({ term, movies });
         })

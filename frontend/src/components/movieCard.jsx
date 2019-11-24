@@ -17,6 +17,7 @@ import axios from 'axios';
 
 import ImgNotAvailable from '../resources/na_not_available.png'
 import { fetchFavorites } from '../actions/FavoritesActions'
+import consts from '../consts'
 
 class MovieCard extends Component {
     constructor(props) {
@@ -86,13 +87,13 @@ class MovieCard extends Component {
         if (this.props.favorite) {
             axios({
                 method: 'DELETE',
-                url: `http://localhost:3003/api/favmovies/${this.props.favorite._id}`
+                url: `${consts.FAV_MOVIES_URL}/favmovies/${this.props.favorite._id}`
             }).then(res => {
                 this.props.fetchFavorites();
             })
 
         } else {
-            axios.post(`http://localhost:3003/api/favmovies`, this.getParams())
+            axios.post(`${consts.FAV_MOVIES_URL}/favmovies`, this.getParams())
                 .then(res => {
                     this.props.fetchFavorites();
                 })
