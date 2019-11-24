@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { compose } from 'redux'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -8,6 +10,35 @@ import Grid from '@material-ui/core/Grid';
 
 import MainContent from './mainContent'
 import Search from '../components/search'
+import consts from '../consts'
+
+class Content extends Component {
+
+  constructor(props) {
+    super(props)
+  }
+
+  render() {
+    const { classes } = this.props;
+    const section = this.props.sections.actual;
+    const url = section === 'Search' 
+      ? `http://www.omdbapi.com/?apikey=${process.env.API_KEY}&s=/${this.props.search.term}`
+      : `${consts.FAV_MOVIES_URL}/favmovies`
+
+    return (
+      <Paper className={classes.paper}>
+        <AppBar className={classes.searchBar} position="static" color="default" elevation={0}>
+          <Toolbar>
+            <Grid container spacing={2} alignItems="center">
+              <Search />
+            </Grid>
+          </Toolbar>
+        </AppBar>
+        <MainContent url={url} />
+      </Paper>
+    );
+  }
+}
 
 const styles = theme => ({
   paper: {
@@ -29,25 +60,11 @@ const styles = theme => ({
   },
 });
 
-function Content(props) {
-  const { classes } = props;
+const mapStateToProps = state => ({ search: state.search, sections: state.sections })
 
-  return (
-    <Paper className={classes.paper}>
-      <AppBar className={classes.searchBar} position="static" color="default" elevation={0}>
-        <Toolbar>
-          <Grid container spacing={2} alignItems="center">
-            <Search />
-          </Grid>
-        </Toolbar>
-      </AppBar>
-      <MainContent />
-    </Paper>
-  );
-}
+const enhance = compose(
+  withStyles(styles),
+  connect(mapStateToProps, null)
+);
 
-Content.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Content);
+export default enhance(Content);

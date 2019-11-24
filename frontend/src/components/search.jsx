@@ -30,7 +30,9 @@ class Search extends Component {
                     />
                 </Grid>
                 <Grid item>
-                    <Button variant="contained" onClick={() => this.props.clickSearch(this.state.term)}>
+                    <Button variant="contained" 
+                        onClick={() => this.props.clickSearch(this.state.term)}
+                        disabled={this.props.sections.actual === 'Favorites'}>
                         Search
                     </Button>
                 </Grid>
@@ -45,6 +47,6 @@ class Search extends Component {
     }
 }
 
-const mapStateToProps = state => ({ search: state.search })
+const mapStateToProps = state => ({ sections: state.sections, search: state.search })
 const mapDispatchToProps = dispatch => bindActionCreators({ clickSearch }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Search)

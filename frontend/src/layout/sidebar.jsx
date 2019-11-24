@@ -1,5 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { bindActionCreators, compose } from 'redux'
+import { connect } from 'react-redux'
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
@@ -13,16 +14,85 @@ import LocalMoviesIcon from '@material-ui/icons/LocalMovies';
 import Bookmarks from '@material-ui/icons/Bookmarks';
 import BuildIcon from '@material-ui/icons/Build';
 
-const categories = [
-  {
-    id: 'Sections',
-    children: [
-      { id: 'Search', icon: <LocalMoviesIcon />, active: true },
-      { id: 'Favorites', icon: <Bookmarks /> },
-      { id: 'Summary', icon: <BuildIcon /> },
-    ],
+import { clickSection } from "../actions/sectionActions";
+
+class Navigator extends Component {
+
+  constructor(props) {
+    super(props)
+
+    this.categories = [
+      {
+        id: 'Sections',
+        children: [
+          { id: 'Search', icon: <LocalMoviesIcon /> },
+          { id: 'Favorites', icon: <Bookmarks /> },
+          { id: 'Summary', icon: <BuildIcon /> },
+        ],
+      }
+    ];
+
+    this.props.clickSection('Search');
   }
-];
+
+  render() {
+    const { classes, PaperProps } = this.props;
+    
+    return (
+      <Drawer variant="permanent" PaperProps={PaperProps}>
+        <List disablePadding>
+          <ListItem className={clsx(classes.firebase, classes.item, classes.itemCategory)}>
+            Fav Movies
+        </ListItem>
+          <ListItem className={clsx(classes.item, classes.itemCategory)}>
+            <ListItemIcon className={classes.itemIcon}>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText
+              classes={{
+                primary: classes.itemPrimary,
+              }}
+            >
+              Project Overview
+          </ListItemText>
+          </ListItem>
+          {this.categories.map(({ id, children }) => (
+            <React.Fragment key={id}>
+              <ListItem className={classes.categoryHeader}>
+                <ListItemText
+                  classes={{
+                    primary: classes.categoryHeaderPrimary,
+                  }}
+                >
+                  {id}
+                </ListItemText>
+              </ListItem>
+              {children.map(({ id: childId, icon }) => {
+                const active = this.props.sections.actual === childId;
+                return (<ListItem onClick={(e) => this.props.clickSection(childId)}
+                  key={childId}
+                  button
+                  className={clsx(classes.item, active && classes.itemActiveItem)}
+                >
+                  <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
+                  <ListItemText
+                    classes={{
+                      primary: classes.itemPrimary,
+                    }}
+                  >
+                    {childId}
+                  </ListItemText>
+                </ListItem>)
+              })}
+
+              <Divider className={classes.divider} />
+            </React.Fragment>
+          ))}
+        </List>
+      </Drawer>
+    );
+  }
+}
 
 const styles = theme => ({
   categoryHeader: {
@@ -64,66 +134,12 @@ const styles = theme => ({
     marginTop: theme.spacing(2),
   },
 });
+const mapStateToProps = state => ({ sections: state.sections })
+const mapDispatchToProps = dispatch => bindActionCreators({ clickSection }, dispatch)
 
-function Navigator(props) {
-  const { classes, ...other } = props;
+const enhance = compose(
+  withStyles(styles),
+  connect(mapStateToProps, mapDispatchToProps)
+);
 
-  return (
-    <Drawer variant="permanent" {...other}>
-      <List disablePadding>
-        <ListItem className={clsx(classes.firebase, classes.item, classes.itemCategory)}>
-          Fav Movies
-        </ListItem>
-        <ListItem className={clsx(classes.item, classes.itemCategory)}>
-          <ListItemIcon className={classes.itemIcon}>
-            <HomeIcon />
-          </ListItemIcon>
-          <ListItemText
-            classes={{
-              primary: classes.itemPrimary,
-            }}
-          >
-            Project Overview
-          </ListItemText>
-        </ListItem>
-        {categories.map(({ id, children }) => (
-          <React.Fragment key={id}>
-            <ListItem className={classes.categoryHeader}>
-              <ListItemText
-                classes={{
-                  primary: classes.categoryHeaderPrimary,
-                }}
-              >
-                {id}
-              </ListItemText>
-            </ListItem>
-            {children.map(({ id: childId, icon, active }) => (
-              <ListItem
-                key={childId}
-                button
-                className={clsx(classes.item, active && classes.itemActiveItem)}
-              >
-                <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
-                <ListItemText
-                  classes={{
-                    primary: classes.itemPrimary,
-                  }}
-                >
-                  {childId}
-                </ListItemText>
-              </ListItem>
-            ))}
-
-            <Divider className={classes.divider} />
-          </React.Fragment>
-        ))}
-      </List>
-    </Drawer>
-  );
-}
-
-Navigator.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Navigator);
+export default enhance(Navigator);

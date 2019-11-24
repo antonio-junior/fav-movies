@@ -1,6 +1,6 @@
-export function clickSection(section) {
+export function clickSection(sectionId) {
     return {
         type: 'SECTION_CLICKED',
-        payload: section
+        payload: sectionId
     }
 }

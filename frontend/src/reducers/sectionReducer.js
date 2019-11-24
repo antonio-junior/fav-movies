@@ -1,4 +1,4 @@
-const INITIAL_STATE = { actual: 'search' }
+const INITIAL_STATE = { actual: '' }
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {

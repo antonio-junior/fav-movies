@@ -30,14 +30,14 @@ class MovieCard extends Component {
                 <CardActionArea>
                     <CardMedia
                         component="img"
-                        alt={this.props.data.Title}
+                        alt={this.props.data.title}
                         height="140"
-                        image={this.props.data.Poster !== "N/A" ? this.props.data.Poster : ImgNotAvailable}
-                        title={this.props.data.Title}
+                        image={this.props.data.poster !== "N/A" ? this.props.data.poster : ImgNotAvailable}
+                        title={this.props.data.title}
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2" className="h2-movie">
-                            {this.props.data.Title}
+                            {this.props.data.title}
                         </Typography>
                     </CardContent>
                 </CardActionArea>
@@ -58,9 +58,9 @@ class MovieCard extends Component {
                                 <ControlPointIcon />
                             </IconButton>
                         </Tooltip>
-                        <Tooltip placement="top" title={this.props.data.Poster}>
+                        <Tooltip placement="top" title={this.props.data.poster}>
                             <IconButton aria-label="details" className="actionButton"
-                                onClick={(e) => window.open(this.props.data.Poster)} >
+                                onClick={(e) => window.open(this.props.data.poster)} >
                                 <ImageIcon />
                             </IconButton>
                         </Tooltip>
@@ -76,11 +76,7 @@ class MovieCard extends Component {
             index: 0
         };
 
-        let params = Object.fromEntries(
-            Object.entries(this.props.data).map(([k, v]) => [k.toLowerCase(), v])
-        );
-
-        return { ...params, ...additionalInfo };
+        return { ...this.props.data, ...additionalInfo };
     }
 
     handleFavoriteClick(e) {
