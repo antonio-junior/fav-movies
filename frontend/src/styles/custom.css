@@ -38,3 +38,7 @@ h1 {
 .MuiCardContent-root {
     height: 70px;
 }
+
+#transition-modal-title {
+    text-align: center;
+}

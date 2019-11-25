@@ -5,7 +5,7 @@ const Dotenv = require('dotenv-webpack')
 module.exports = {
     entry: './src/index.jsx',
     output: {
-        path : path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'dist'),
         filename: 'app.js'
     },
     devServer: {
@@ -42,19 +42,32 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-env', "@babel/preset-react"],
-                        plugins: ['@babel/plugin-proposal-object-rest-spread']
+                        presets: [
+                            [
+                                "@babel/preset-env",
+                                {
+                                    "targets": {
+                                        "node": "10"
+                                    }
+                                }
+                            ],
+                            "@babel/preset-react"
+                        ],
+                        plugins: [
+                            '@babel/plugin-proposal-object-rest-spread',
+                            '@babel/plugin-transform-runtime'
+                        ]
                     }
                 }
             },
             {
                 test: /\.(png|jpe?g|gif)$/i,
                 use: [
-                  {
-                    loader: 'file-loader',
-                  },
+                    {
+                        loader: 'file-loader',
+                    },
                 ],
-              }
+            }
         ]
-    } 
+    }
 }

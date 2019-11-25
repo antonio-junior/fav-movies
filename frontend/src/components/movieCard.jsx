@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { toastr } from 'react-redux-toastr'
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -17,11 +18,14 @@ import axios from 'axios';
 
 import ImgNotAvailable from '../resources/na_not_available.png'
 import { fetchFavorites } from '../actions/FavoritesActions'
+import Modal from '../components/modal'
 import consts from '../consts'
 
 class MovieCard extends Component {
     constructor(props) {
         super(props);
+
+        this.state = { openModal: false, plot: '' }
     }
 
     render() {
@@ -41,6 +45,10 @@ class MovieCard extends Component {
                         </Typography>
                     </CardContent>
                 </CardActionArea>
+                <Modal title={this.props.data.title}
+                    plot={this.state.plot}
+                    open={this.state.openModal}
+                    onClose={(e) => this.handleCloseModal(e)} />
                 <CardActions >
                     <CardActions disableSpacing>
                         <Tooltip placement="top" title={this.props.favorite ? "You Liked" : "Like!"}>
@@ -54,7 +62,8 @@ class MovieCard extends Component {
                             </IconButton>
                         </Tooltip>
                         <Tooltip placement="top" title="Details">
-                            <IconButton aria-label="details" className="actionButton">
+                            <IconButton aria-label="details" className="actionButton"
+                                onClick={(e) => this.handleDetails(e)} >
                                 <ControlPointIcon />
                             </IconButton>
                         </Tooltip>
@@ -70,29 +79,62 @@ class MovieCard extends Component {
         );
     }
 
-    getParams() {
+    handleCloseModal(e) {
+        this.setState({ openModal: false });
+    }
+
+    async handleDetails(e) {
+        let plot = this.props.data.plot;
+        
+        if (!plot) {
+            const { data } = await this.getDetails();
+            plot = data.Plot;
+        }
+
+        this.setState({ openModal: true, plot});
+    }
+
+    async getDetails() {
+        return await axios.get(
+            `http://www.omdbapi.com/?apikey=${process.env.API_KEY}&plot=full&i=${this.props.data.imdbid}`);
+    }
+
+    async getParams() {
+
+        const { data } = await this.getDetails();
+
         const additionalInfo = {
+            country: data.Country,
+            genre: data.Genre,
+            plot: data.Plot,
             owner: "dev",
             index: 0
-        };
+        }
 
         return { ...this.props.data, ...additionalInfo };
     }
 
-    handleFavoriteClick(e) {
-        if (this.props.favorite) {
-            axios({
-                method: 'DELETE',
-                url: `${consts.FAV_MOVIES_URL}/favmovies/${this.props.favorite._id}`
-            }).then(res => {
-                this.props.fetchFavorites();
-            })
+    handleOperation(promise) {
+        promise.then(res => {
+            toastr.success('Sucesso', 'Operação Realizada com sucesso.')
+            this.props.fetchFavorites();
+        }).catch(err => {
+            toastr.error('Erro', `Erro ao realizar operação. (${err})`);
+        });
+    }
 
+    async handleFavoriteClick(e) {
+        if (this.props.favorite) {
+            this.handleOperation(
+                axios({
+                    method: 'DELETE',
+                    url: `${consts.FAV_MOVIES_URL}/favmovies/${this.props.favorite._id}`
+                }))
         } else {
-            axios.post(`${consts.FAV_MOVIES_URL}/favmovies`, this.getParams())
-                .then(res => {
-                    this.props.fetchFavorites();
-                })
+            const params = await this.getParams();
+            this.handleOperation(
+                axios.post(`${consts.FAV_MOVIES_URL}/favmovies`, params)
+            )
         }
     }
 }
