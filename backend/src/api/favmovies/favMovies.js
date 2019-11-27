@@ -11,6 +11,9 @@ const movieSchema = new mongoose.Schema({
     genre: { type: String, required: true },
     country: { type: String, required: true },
     plot: { type: String, required: true },
-})
+},
+{ 
+    timestamps: { createdAt: 'created_at' } }
+)
 
 module.exports = restful.model('movies', movieSchema)
