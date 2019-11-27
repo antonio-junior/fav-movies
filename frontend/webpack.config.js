@@ -37,6 +37,18 @@ module.exports = {
                 ],
             },
             {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                enforce: "pre",
+                use: {
+                    loader: "eslint-loader",
+                    options: {
+                        emitWarning: true,
+                        configFile: "./.eslintrc.json"
+                    }
+                }
+            },
+            {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {

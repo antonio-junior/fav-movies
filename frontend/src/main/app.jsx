@@ -1,13 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
+import {
+  ThemeProvider,
+  createMuiTheme,
+  withStyles,
+} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
-import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import Navigator from '../layout/sidebar';
+import PropTypes from 'prop-types';
+import React from 'react';
+import Typography from '@material-ui/core/Typography';
+// eslint-disable-next-line sort-imports
 import Content from '../layout/content';
 import Header from '../layout/header';
+import Navigator from '../layout/sidebar';
 
 let theme = createMuiTheme({
   palette: {
@@ -179,14 +184,13 @@ function Paperbase(props) {
             <Content />
           </main>
           <footer className={classes.footer}>
-          <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-              Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-          </Typography>
+            <Typography variant="body2" color="textSecondary" align="center">
+              Copyright ©
+              <Link color="inherit" href="https://material-ui.com/">
+                Your Website
+              </Link>{' '}
+              {new Date().getFullYear()}.
+            </Typography>
           </footer>
         </div>
       </div>

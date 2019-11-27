@@ -1,25 +1,24 @@
+import { bindActionCreators, compose } from 'redux';
 import React, { Component } from 'react';
-import { bindActionCreators, compose } from 'redux'
-import { connect } from 'react-redux'
-import clsx from 'clsx';
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
+import BuildIcon from '@material-ui/icons/Build';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
+import Bookmarks from '@material-ui/icons/Bookmarks';
+import HomeIcon from '@material-ui/icons/Home';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import HomeIcon from '@material-ui/icons/Home';
 import LocalMoviesIcon from '@material-ui/icons/LocalMovies';
-import Bookmarks from '@material-ui/icons/Bookmarks';
-import BuildIcon from '@material-ui/icons/Build';
-
-import { clickSection } from "../actions/sectionActions";
+import PropTypes from 'prop-types';
+import clsx from 'clsx';
+import clickSection from '../actions/sectionActions';
 
 class Navigator extends Component {
-
   constructor(props) {
-    super(props)
+    super(props);
 
     this.categories = [
       {
@@ -29,21 +28,33 @@ class Navigator extends Component {
           { id: 'Favorites', icon: <Bookmarks /> },
           { id: 'Summary', icon: <BuildIcon /> },
         ],
-      }
+      },
     ];
 
-    this.props.clickSection('Search');
+    const { clickSection: clickSectionCall } = this.props;
+    clickSectionCall('Search');
   }
 
   render() {
-    const { classes, PaperProps } = this.props;
-    
+    const {
+      classes,
+      PaperProps,
+      sections,
+      clickSection: clickSectionCall,
+    } = this.props;
+
     return (
       <Drawer variant="permanent" PaperProps={PaperProps}>
         <List disablePadding>
-          <ListItem className={clsx(classes.firebase, classes.item, classes.itemCategory)}>
+          <ListItem
+            className={clsx(
+              classes.firebase,
+              classes.item,
+              classes.itemCategory,
+            )}
+          >
             Fav Movies
-        </ListItem>
+          </ListItem>
           <ListItem className={clsx(classes.item, classes.itemCategory)}>
             <ListItemIcon className={classes.itemIcon}>
               <HomeIcon />
@@ -54,7 +65,7 @@ class Navigator extends Component {
               }}
             >
               Project Overview
-          </ListItemText>
+            </ListItemText>
           </ListItem>
           {this.categories.map(({ id, children }) => (
             <React.Fragment key={id}>
@@ -68,21 +79,29 @@ class Navigator extends Component {
                 </ListItemText>
               </ListItem>
               {children.map(({ id: childId, icon }) => {
-                const active = this.props.sections.actual === childId;
-                return (<ListItem onClick={(e) => this.props.clickSection(childId)}
-                  key={childId}
-                  button
-                  className={clsx(classes.item, active && classes.itemActiveItem)}
-                >
-                  <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
-                  <ListItemText
-                    classes={{
-                      primary: classes.itemPrimary,
-                    }}
+                const active = sections.actual === childId;
+                return (
+                  <ListItem
+                    onClick={() => clickSectionCall(childId)}
+                    key={childId}
+                    button
+                    className={clsx(
+                      classes.item,
+                      active && classes.itemActiveItem,
+                    )}
                   >
-                    {childId}
-                  </ListItemText>
-                </ListItem>)
+                    <ListItemIcon className={classes.itemIcon}>
+                      {icon}
+                    </ListItemIcon>
+                    <ListItemText
+                      classes={{
+                        primary: classes.itemPrimary,
+                      }}
+                    >
+                      {childId}
+                    </ListItemText>
+                  </ListItem>
+                );
               })}
 
               <Divider className={classes.divider} />
@@ -93,6 +112,13 @@ class Navigator extends Component {
     );
   }
 }
+
+Navigator.propTypes = {
+  classes: PropTypes.object.isRequired,
+  PaperProps: PropTypes.object.isRequired,
+  sections: PropTypes.object.isRequired,
+  clickSection: PropTypes.func.isRequired,
+};
 
 const styles = theme => ({
   categoryHeader: {
@@ -134,12 +160,14 @@ const styles = theme => ({
     marginTop: theme.spacing(2),
   },
 });
-const mapStateToProps = state => ({ sections: state.sections })
-const mapDispatchToProps = dispatch => bindActionCreators({ clickSection }, dispatch)
+
+const mapStateToProps = state => ({ sections: state.sections });
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ clickSection }, dispatch);
 
 const enhance = compose(
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps),
 );
 
 export default enhance(Navigator);
