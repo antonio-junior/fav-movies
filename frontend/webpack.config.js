@@ -1,21 +1,23 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const Dotenv = require('dotenv-webpack');;
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'app.js',
+    publicPath: '/',
   },
   devServer: {
     port: 8080,
     contentBase: './public',
+    historyApiFallback: true,
   },
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      modules: __dirname + '/node_modules',
+      modules: `${__dirname}/node_modules`,
     },
   },
   plugins: [
@@ -83,4 +85,3 @@ module.exports = {
     ],
   },
 };
-;

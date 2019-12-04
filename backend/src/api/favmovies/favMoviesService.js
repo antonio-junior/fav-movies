@@ -5,12 +5,18 @@ FavMovies.methods(['get', 'post', 'put', 'delete'])
 FavMovies.updateOptions({ new: true, runValidators: false })
 FavMovies.after('post', errorHandler).after('put', errorHandler)
 
-async function count () {
-    return FavMovies.countDocuments();
+async function maxIndex () {
+    const req = await FavMovies.find({}, {index: 1, _id: 0})
+        .sort({index:-1}).limit(1)
+        .exec();
+
+    return req[0].index;
 }
 
 FavMovies.before('post', async (req, res, next) => {
-    req.body.index = await count();
+    const newIndex = await maxIndex() + 1;
+    console.log(newIndex);
+    req.body.index = newIndex;
     next()
 })
 

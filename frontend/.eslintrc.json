@@ -34,6 +34,7 @@
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",
         "react/forbid-prop-types": "off",
+        "prefer-promise-reject-errors": "off",
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         // "sort-imports": ["error", {
         //     "ignoreCase": false,

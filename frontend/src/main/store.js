@@ -6,7 +6,7 @@ import FavoritesReducer from '../reducers/favoritesReducer';
 
 const rootReducer = combineReducers({
   search: SearchReducer,
-  sections: SectionReducer,
+  section: SectionReducer,
   favorites: FavoritesReducer,
   toastr: toastrReducer,
 });

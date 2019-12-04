@@ -1,6 +1,6 @@
-export default function clickSection(sectionId) {
+export default function clickSection(name) {
   return {
     type: 'SECTION_CLICKED',
-    payload: sectionId,
+    payload: name,
   };
 }

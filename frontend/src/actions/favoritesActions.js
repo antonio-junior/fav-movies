@@ -1,10 +1,8 @@
-import axios from 'axios';
-import consts from '../consts';
+import Api from '../services/Api';
 
 export default function fetchFavorites() {
   return dispatch => {
-    axios
-      .get(`${consts.FAV_MOVIES_URL}/favmovies`)
+    Api.getAll()
       .then(resp => {
         dispatch({ type: 'FETCH_FAVORITES', payload: resp.data });
       })

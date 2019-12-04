@@ -5,6 +5,8 @@ import Backdrop from '@material-ui/core/Backdrop';
 import PropTypes from 'prop-types';
 import Fade from '@material-ui/core/Fade';
 
+import styles from './Modal.styles';
+
 const ModalCustom = ({ classes, plot, open, onClose, title }) => {
   return (
     <div>
@@ -38,21 +40,5 @@ ModalCustom.propTypes = {
   title: PropTypes.string.isRequired,
   plot: PropTypes.string.isRequired,
 };
-
-const styles = theme => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-    width: '600px',
-    height: '400px',
-  },
-});
 
 export default withStyles(styles)(ModalCustom);
