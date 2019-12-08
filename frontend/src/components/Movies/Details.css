@@ -1,0 +1,14 @@
+.img-details {
+    float:left;
+    width: 30%;
+}
+
+.content-details {
+    float:left;
+    width: 70%;
+}
+
+.content-details h3 {
+    width: 70%;
+    float: left;
+}

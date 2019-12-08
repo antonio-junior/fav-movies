@@ -35,13 +35,8 @@
         "react/jsx-uses-vars": "error",
         "react/forbid-prop-types": "off",
         "prefer-promise-reject-errors": "off",
+        "no-confusing-arrow": ["error", { "allowParens": true }],
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-        // "sort-imports": ["error", {
-        //     "ignoreCase": false,
-        //     "ignoreDeclarationSort": false,
-        //     "ignoreMemberSort": false,
-        //     "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
-        // }],
         "no-underscore-dangle" : [
             "error",
             {

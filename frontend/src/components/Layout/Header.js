@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -7,11 +7,11 @@ import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import { faHome, faStar, faChartLine } from '@fortawesome/free-solid-svg-icons';
 
+import history from '../../helpers/history';
 import HeaderLink from './HeaderLink';
-import './Header.styles.css';
+import './Header.css';
 
 const Header = props => {
-  const [active, setActive] = useState('Home');
   const inputRef = useRef(null);
 
   const { onSubmit } = props;
@@ -22,34 +22,15 @@ const Header = props => {
     }
   };
 
-  const onClickLink = e => {
-    setActive(e.target.getAttribute('data-rb-event-key'));
-  };
-
   return (
     <Navbar bg="dark" variant="dark">
       <Navbar.Brand href="#home">Favorite Movies</Navbar.Brand>
 
-      <Nav className="mr-auto" defaultActiveKey={active}>
-        <HeaderLink
-          link="/"
-          onClick={e => onClickLink(e)}
-          icon={faHome}
-          text="Home"
-        />
+      <Nav className="mr-auto" defaultActiveKey={history.location.pathname}>
+        <HeaderLink link="/" icon={faHome} text="Home" />
 
-        <HeaderLink
-          link="/favorites"
-          onClick={e => onClickLink(e)}
-          icon={faStar}
-          text="Favorites"
-        />
-        <HeaderLink
-          link="/dashboard"
-          onClick={e => onClickLink(e)}
-          icon={faChartLine}
-          text="Dashboard"
-        />
+        <HeaderLink link="/favorites" icon={faStar} text="Favorites" />
+        <HeaderLink link="/dashboard" icon={faChartLine} text="Dashboard" />
       </Nav>
 
       <Form inline onSubmit={e => e.preventDefault()}>

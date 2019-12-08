@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import ContentContainer from '../components/Layout/ContentContainer';
-import Header from '../components/Layout/Header';
-import Messages from '../components/UI/Messages/index';
-import Dashboard from '../components/Movies/Dashboard';
+import ContentContainer from '../Layout/ContentContainer';
+import Header from '../Layout/Header';
+import Dashboard from '../Movies/Dashboard';
+import Details from '../Movies/Details';
 
 export default function App() {
   const [query, setQuery] = useState('');
@@ -23,11 +23,11 @@ export default function App() {
         <Route path="/favorites">
           <ContentContainer isFavorite />
         </Route>
+        <Route path="/movie/:imdbid" component={Details} />
         <Route path="/dashboard">
           <Dashboard />
         </Route>
       </Switch>
-      <Messages />
     </>
   );
 }

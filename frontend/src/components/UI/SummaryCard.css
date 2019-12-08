@@ -1,0 +1,16 @@
+.summary-card {
+    width: 14rem;
+    color: white;
+    text-align: center;
+    display: inline-block;
+    margin-right: 30px;
+}
+
+.imgContainer {
+    width: 30%;
+}
+
+.db-container {
+    display: table-cell;
+}
+

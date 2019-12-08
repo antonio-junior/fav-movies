@@ -8,6 +8,27 @@ const Api = {
     return BASE_URL;
   },
 
+  count() {
+    const COUNT_URL = `${BASE_URL}/count`;
+
+    return new Promise((resolve, reject) => {
+      const request = axios.get(COUNT_URL);
+
+      request.then(
+        response => {
+          if (response.data.errors) {
+            reject({ errors: response.data.errors });
+          } else {
+            resolve(response);
+          }
+        },
+        error => {
+          reject(new Error(error.message));
+        },
+      );
+    });
+  },
+
   getAll() {
     return new Promise((resolve, reject) => {
       const request = axios.get(BASE_URL);

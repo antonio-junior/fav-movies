@@ -1,0 +1,10 @@
+.heart-icon {
+    font-size: 32px;
+    padding-top: 7px;
+    margin-right: 6px;
+    cursor: pointer;
+}
+
+.like {
+    color: red;
+}
