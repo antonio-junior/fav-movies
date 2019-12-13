@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row';
 import MovieItem from '../Movies/MovieItem';
 import OMDb from '../../services/OMDb';
 import Api from '../../services/Api';
+import Loader from '../UI/Loader';
 import './ContentContainer.css';
 
 const ContentContainer = props => {
@@ -14,12 +15,12 @@ const ContentContainer = props => {
 
   const [movies, setMovies] = useState(null);
   useEffect(() => {
-    const request = OMDb.search(query);
-
     if (query === '') {
       setMovies([]);
       return;
     }
+
+    const request = OMDb.search(query);
 
     request.then(res => {
       const normalizeAttributes = movie =>
@@ -33,7 +34,8 @@ const ContentContainer = props => {
   }, [query]);
 
   const [favorites, setFavorites] = useState(null);
-  if (favorites == null) Api.getAll().then(res => setFavorites(res.data.reverse()))
+  if (favorites == null)
+    Api.getAll().then(res => setFavorites(res.data.reverse()));
 
   const onClickFavorite = (imdbid, favoriteid) => {
     if (favorites.find(f => f.imdbid === imdbid) === undefined) {
@@ -58,7 +60,7 @@ const ContentContainer = props => {
 
   const showMovies = moviesToShow => {
     if (moviesToShow == null || favorites == null) {
-      return 'Loading...';
+      return <Loader />;
     }
 
     if (moviesToShow.length === 0) {

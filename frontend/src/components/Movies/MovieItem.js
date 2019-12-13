@@ -3,12 +3,12 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as like } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as notLike } from '@fortawesome/free-regular-svg-icons'
+import { faHeart as notLike } from '@fortawesome/free-regular-svg-icons';
 
-import './MovieItem.css'
+import './MovieItem.css';
 
 const MovieItem = ({
   poster,
@@ -24,20 +24,21 @@ const MovieItem = ({
         <Card.Img variant="top" src={poster} />
         <Card.Body>
           <Card.Title>{title}</Card.Title>
-            <span
-              favoriteid={favoriteid}
-              imdbid={imdbid}
-              onClick={onClickFavorite}>
-                <FontAwesomeIcon 
-                  className={`heart-icon ${favorite ? 'like' : ''}`} 
-                  icon={favorite ? like : notLike} 
-              />
-            </span>         
+          <span
+            role="button"
+            tabIndex="0"
+            favoriteid={favoriteid}
+            imdbid={imdbid}
+            onClick={onClickFavorite}
+            onKeyDown={onClickFavorite}
+          >
+            <FontAwesomeIcon
+              className={`heart-icon ${favorite ? 'like' : ''}`}
+              icon={favorite ? like : notLike}
+            />
+          </span>
           <Button variant="primary">
-            <Link
-              style={{ color: '#fff' }}
-              to={`/movie/${imdbid}`}
-            >
+            <Link style={{ color: '#fff' }} to={`/movie/${imdbid}`}>
               Details
             </Link>
           </Button>

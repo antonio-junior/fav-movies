@@ -1,5 +1,5 @@
 .summary-card {
-    width: 14rem;
+    width: 20rem;
     color: white;
     text-align: center;
     display: inline-block;
@@ -7,10 +7,14 @@
 }
 
 .imgContainer {
-    width: 30%;
+    width: 35%;
+    font-size: 42px;
 }
 
 .db-container {
-    display: table-cell;
+    display: inline-block;
 }
 
+.bg-info {
+    background-color: #17A2E2!important;
+}

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import ContentContainer from '../Layout/ContentContainer';
 import Header from '../Layout/Header';
-import Dashboard from '../Movies/Dashboard';
-import Details from '../Movies/Details';
+import Dashboard from '../pages/Dashboard';
+import Details from '../pages/Details';
 
 export default function App() {
   const [query, setQuery] = useState('');
@@ -24,9 +24,8 @@ export default function App() {
           <ContentContainer isFavorite />
         </Route>
         <Route path="/movie/:imdbid" component={Details} />
-        <Route path="/dashboard">
-          <Dashboard />
-        </Route>
+        <Route path="/dashboard" component={Dashboard} />
+        <Redirect from="*" to="/" />
       </Switch>
     </>
   );

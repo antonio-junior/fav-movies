@@ -6,6 +6,7 @@ import { Rating } from '@bit/primefaces.primereact.rating';
 import PrimereactStyle from '@bit/primefaces.primereact.internal.stylelinks';
 
 import OMDb from '../../services/OMDb';
+import Loader from '../UI/Loader';
 import './Details.css';
 
 const Details = () => {
@@ -18,7 +19,7 @@ const Details = () => {
     <Container>
       <PrimereactStyle />
       <h1>Details</h1>
-      {!movie && 'Loading...'}
+      {!movie && <Loader />}
       {movie && (
         <>
           <div className="img-details">

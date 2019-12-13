@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import PropTypes from 'prop-types';
-import PieChart from '../UI/PieChart';
 
+import PieChart from './PieChart';
+import Loader from './Loader';
 import Api from '../../services/Api';
+import Utils from '../../helpers/Utils';
 
 const CustomChart = ({ title, field, callback }) => {
   const [summary, setSummary] = useState(null);
@@ -11,12 +13,7 @@ const CustomChart = ({ title, field, callback }) => {
   if (summary == null) {
     Api.getSummary(field).then(res => {
       const result = res.data.value;
-      const values = result.map(callback);
-      const merged = [].concat(...values);
-      const counts = {};
-      merged.forEach(key => {
-        counts[key] = (counts[key] || 0) + 1;
-      });
+      const counts = Utils.countSummary(result, callback);
       setSummary(counts);
     });
   }
@@ -29,7 +26,7 @@ const CustomChart = ({ title, field, callback }) => {
   return (
     <Container style={styles}>
       <h2>{title}</h2>
-      {!summary && 'Carregando...'}
+      {!summary && <Loader />}
       {summary && <PieChart summary={summary} />}
     </Container>
   );

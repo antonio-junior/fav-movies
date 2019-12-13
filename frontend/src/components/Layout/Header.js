@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -13,12 +13,24 @@ import './Header.css';
 
 const Header = props => {
   const inputRef = useRef(null);
+  const [activeKey, setActiveKey] = useState('/');
 
   const { onSubmit } = props;
 
+  const handleSelect = eventKey => {
+    setActiveKey(eventKey);
+  };
+
+  const submitQuery = () => {
+    history.push('/');
+    setActiveKey('/');
+
+    onSubmit(inputRef.current.value);
+  };
+
   const onChangeInput = e => {
     if (e.charCode === 13) {
-      onSubmit(inputRef.current.value);
+      submitQuery();
     }
   };
 
@@ -26,7 +38,7 @@ const Header = props => {
     <Navbar bg="dark" variant="dark">
       <Navbar.Brand href="#home">Favorite Movies</Navbar.Brand>
 
-      <Nav className="mr-auto" defaultActiveKey={history.location.pathname}>
+      <Nav className="mr-auto" activeKey={activeKey} onSelect={handleSelect}>
         <HeaderLink link="/" icon={faHome} text="Home" />
 
         <HeaderLink link="/favorites" icon={faStar} text="Favorites" />
@@ -41,10 +53,7 @@ const Header = props => {
           className="mr-sm-2"
           ref={inputRef}
         />
-        <Button
-          variant="outline-info"
-          onClick={() => onSubmit(inputRef.current.value)}
-        >
+        <Button variant="outline-info" onClick={() => submitQuery()}>
           Search
         </Button>
       </Form>
