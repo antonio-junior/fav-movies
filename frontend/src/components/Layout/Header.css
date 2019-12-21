@@ -1,3 +1,7 @@
 .icon {
   margin-right: 5px;
 }
+
+body {
+  background-color: #eee !important;
+}

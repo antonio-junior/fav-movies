@@ -13,7 +13,7 @@ import './Header.css';
 
 const Header = props => {
   const inputRef = useRef(null);
-  const [activeKey, setActiveKey] = useState('/');
+  const [activeKey, setActiveKey] = useState(history.location.pathname);
 
   const { onSubmit } = props;
 

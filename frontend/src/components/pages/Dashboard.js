@@ -8,7 +8,7 @@ import {
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
 
-import CustomChart from '../UI/CustomChart';
+import ChartContainer from '../UI/ChartContainer';
 import SummaryCard from '../UI/SummaryCard';
 import Api from '../../services/Api';
 import Utils from '../../helpers/Utils';
@@ -16,14 +16,14 @@ import Utils from '../../helpers/Utils';
 const Dashboard = () => {
   const cbSplitGenres = item => item.genre.split(',').map(x => x.trim());
 
-  const countGenres = arr => Object.entries(arr).length;
+  const countGenres = genres => Object.entries(genres).length;
 
-  const getFavoriteGenre = arr => {
+  const getFavoriteGenre = genres => {
     const highestValue = Math.max.apply(
       null,
-      Array.from(new Map(Object.entries(arr)).values()),
+      Array.from(new Map(Object.entries(genres)).values()),
     );
-    return Object.keys(arr).find(key => arr[key] === highestValue);
+    return Object.keys(genres).find(key => genres[key] === highestValue);
   };
 
   const request = Api.getSummary('genre');
@@ -72,9 +72,18 @@ const Dashboard = () => {
           />
         </Col>
       </Row>
-
-      <CustomChart title="Years" field="year" callback={x => x.year} />
-      <CustomChart title="Genres" field="genre" callback={cbSplitGenres} />
+      <Row>
+        <Col>
+          <ChartContainer title="Years" field="year" callback={x => x.year} />
+        </Col>
+        <Col>
+          <ChartContainer
+            title="Genres"
+            field="genre"
+            callback={cbSplitGenres}
+          />
+        </Col>
+      </Row>
     </Container>
   );
 };

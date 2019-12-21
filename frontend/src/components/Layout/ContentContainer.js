@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import { toast } from 'react-toastify';
 
 import MovieItem from '../Movies/MovieItem';
 import OMDb from '../../services/OMDb';
@@ -49,10 +50,14 @@ const ContentContainer = props => {
           ...movie,
         };
 
-        Api.insert(info).then(setFavorites(favorites.concat(info)));
+        Api.insert(info).then(resp => {
+          toast('Favorite added successfully!');
+          setFavorites(favorites.concat(resp.data));
+        });
       });
     } else {
       Api.delete(favoriteid).then(
+        toast('Favorite deleted successfully!'),
         setFavorites(favorites.filter(f => f._id !== favoriteid)),
       );
     }
@@ -67,17 +72,23 @@ const ContentContainer = props => {
       return 'No movies to show';
     }
 
-    return moviesToShow.map(({ imdbid, poster, title, _id }) => (
-      <MovieItem
-        key={imdbid}
-        poster={poster}
-        title={title}
-        imdbid={imdbid}
-        favoriteid={_id}
-        onClickFavorite={() => onClickFavorite(imdbid, _id)}
-        favorite={favorites.find(f => f.imdbid === imdbid) !== undefined}
-      />
-    ));
+    return moviesToShow.map(({ imdbid, poster, title, _id }) => {
+      const favorite = favorites.find(f => f.imdbid === imdbid);
+      const associatedFavoriteId = favorite ? favorite._id : undefined;
+      return (
+        <MovieItem
+          key={imdbid}
+          poster={poster}
+          title={title}
+          imdbid={imdbid}
+          onClickFavorite={() =>
+            onClickFavorite(imdbid, _id || associatedFavoriteId)
+          }
+          favorite={favorite !== undefined}
+          favoriteid={_id}
+        />
+      );
+    });
   };
 
   return (

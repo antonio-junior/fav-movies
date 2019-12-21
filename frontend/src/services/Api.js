@@ -29,6 +29,48 @@ const Api = {
     });
   },
 
+  update(id, data) {
+    const UPDATE_URL = `${BASE_URL}/${id}`;
+
+    return new Promise((resolve, reject) => {
+      const request = axios.put(UPDATE_URL, data);
+
+      request.then(
+        response => {
+          if (response.data.errors) {
+            reject({ errors: response.data.errors });
+          } else {
+            resolve(response);
+          }
+        },
+        error => {
+          reject(new Error(error.message));
+        },
+      );
+    });
+  },
+
+  get(id) {
+    const GET_URL = `${BASE_URL}/${id}`;
+
+    return new Promise((resolve, reject) => {
+      const request = axios.get(GET_URL);
+
+      request.then(
+        response => {
+          if (response.data.errors) {
+            reject({ errors: response.data.errors });
+          } else {
+            resolve(response);
+          }
+        },
+        error => {
+          reject(new Error(error.message));
+        },
+      );
+    });
+  },
+
   getAll() {
     return new Promise((resolve, reject) => {
       const request = axios.get(BASE_URL);

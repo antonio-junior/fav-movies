@@ -12,23 +12,21 @@ const SummaryCard = ({ icon, promise, text }) => {
   if (value === null) promise.then(res => setValue(res.data.value));
 
   return (
-    <>
-      {!value && <Loader />}
+    <Card className="summary-card">
+      {!value && <Loader width="310px" />}
       {value && (
-        <Card bg="secondary" className="summary-card">
-          <Card.Body>
-            <div className="imgContainer db-container">
-              <FontAwesomeIcon icon={icon} />
-            </div>
+        <Card.Body>
+          <div className="imgContainer db-container">
+            <FontAwesomeIcon icon={icon} />
+          </div>
 
-            <div className="contentContainer db-container">
-              <Card.Title>{value}</Card.Title>
-              <Card.Text>{text}</Card.Text>
-            </div>
-          </Card.Body>
-        </Card>
+          <div className="contentContainer db-container">
+            <Card.Title>{value}</Card.Title>
+            <Card.Text>{text}</Card.Text>
+          </div>
+        </Card.Body>
       )}
-    </>
+    </Card>
   );
 };
 
