@@ -7,7 +7,9 @@
   "main": "src/loader.js",
   "scripts": {
     "dev": "nodemon",
-    "production": "pm2 start src/loader.js --name fav-movies-backend"
+    "production": "pm2 start src/loader.js --name fav-movies-backend",
+    "build": "netlify-lambda build express",
+    "start": "nodemon server-local.js"
   },
   "keywords": [],
   "engines": {
@@ -26,6 +28,7 @@
     "pm2": "^4.1.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.0"
+    "nodemon": "^2.0.0".
+    "netlify-lambda": "^1.6.3",
   }
 }
