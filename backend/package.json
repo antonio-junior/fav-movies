@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "nodemon",
     "production": "pm2 start src/loader.js --name fav-movies-backend",
-    "build": "netlify-lambda build express",
+    "build": "netlify-lambda build src",
     "start": "nodemon src/loader.js"
   },
   "keywords": [],
