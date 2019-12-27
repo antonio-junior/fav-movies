@@ -1,6 +1,6 @@
 const port = 3003
 
-const serverless = require('serverless-http');
+const serverless = require('serverless-http')
 const bodyParser = require('body-parser')
 const express = require('express')
 const server = express()
