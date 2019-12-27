@@ -8,11 +8,13 @@ import { toast } from 'react-toastify';
 import MovieItem from '../Movies/MovieItem';
 import OMDb from '../../services/OMDb';
 import Api from '../../services/Api';
+import Auth from '../../services/Auth';
 import Loader from '../UI/Loader';
 import './ContentContainer.css';
 
 const ContentContainer = props => {
   const { query, isFavorite } = props;
+  const loggedEmail = Auth.getStoredUser().email;
 
   const [movies, setMovies] = useState(null);
   useEffect(() => {
@@ -36,7 +38,7 @@ const ContentContainer = props => {
 
   const [favorites, setFavorites] = useState(null);
   if (favorites == null)
-    Api.getAll().then(res => setFavorites(res.data.reverse()));
+    Api.getAll(loggedEmail).then(res => setFavorites(res.data.reverse()));
 
   const onClickFavorite = (imdbid, favoriteid) => {
     if (favorites.find(f => f.imdbid === imdbid) === undefined) {
@@ -46,7 +48,7 @@ const ContentContainer = props => {
           plot: res.Plot,
           country: res.Country,
           genre: res.Genre,
-          owner: 'xxxxxxx',
+          owner: loggedEmail,
           ...movie,
         };
 

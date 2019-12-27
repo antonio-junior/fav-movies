@@ -8,6 +8,7 @@ import Header from '../Layout/Header';
 import Dashboard from '../pages/Dashboard';
 import Details from '../pages/Details';
 import Edit from '../pages/Edit';
+import PrivateRoute from '../AuthVerify/PrivateRoute';
 
 export default function App() {
   toast.configure();
@@ -20,17 +21,35 @@ export default function App() {
 
   return (
     <>
-      <Header onSubmit={e => onSubmit(e)} />
+      <PrivateRoute isPage={false}>
+        <Header onSubmit={e => onSubmit(e)} />
+      </PrivateRoute>
       <Switch>
         <Route exact path="/">
-          <ContentContainer query={query} isFavorite={false} />
+          <PrivateRoute>
+            <ContentContainer query={query} isFavorite={false} />
+          </PrivateRoute>
         </Route>
         <Route path="/favorites">
-          <ContentContainer isFavorite />
+          <PrivateRoute>
+            <ContentContainer isFavorite />
+          </PrivateRoute>
         </Route>
-        <Route path="/movie/:imdbid" component={Details} />
-        <Route path="/edit/:favoriteid" component={Edit} />
-        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/movie/:imdbid">
+          <PrivateRoute>
+            <Details />
+          </PrivateRoute>
+        </Route>
+        <Route path="/edit/:favoriteid">
+          <PrivateRoute>
+            <Edit />
+          </PrivateRoute>
+        </Route>
+        <Route path="/dashboard">
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        </Route>
         <Redirect from="*" to="/" />
       </Switch>
     </>

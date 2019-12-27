@@ -21,7 +21,7 @@ FavMovies.before('post', async (req, res, next) => {
 })
 
 FavMovies.route('count', (req, res, next) => {
-    FavMovies.countDocuments((error, value) => {
+    FavMovies.countDocuments({ owner: req.body.owner }, (error, value) => {
         if (error) {
             res.status(500).json({ errors: [error] })
         } else {
@@ -31,8 +31,9 @@ FavMovies.route('count', (req, res, next) => {
 })
 
 FavMovies.route('summary', (req, res, next) => {
-    const { field } = req.body;
-    FavMovies.find({}).select(`${field} -_id`).exec((error, value) => {
+    console.log(req.body)
+    const { field, owner } = req.body;
+    FavMovies.find({owner}).select(`${field} -_id`).exec((error, value) => {
         if (error) {
             res.status(500).json({ errors: [error] })
         } else {

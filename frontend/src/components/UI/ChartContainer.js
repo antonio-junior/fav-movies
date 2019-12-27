@@ -6,11 +6,11 @@ import Loader from './Loader';
 import Api from '../../services/Api';
 import Utils from '../../helpers/Utils';
 
-const ChartContainer = ({ title, field, callback }) => {
+const ChartContainer = ({ title, field, owner, callback }) => {
   const [summary, setSummary] = useState(null);
 
   if (summary == null) {
-    Api.getSummary(field).then(res => {
+    Api.getSummary(field, owner).then(res => {
       const result = res.data.value;
       const counts = Utils.countSummary(result, callback);
       setSummary(counts);
@@ -29,6 +29,7 @@ const ChartContainer = ({ title, field, callback }) => {
 ChartContainer.propTypes = {
   title: PropTypes.string.isRequired,
   field: PropTypes.string.isRequired,
+  owner: PropTypes.string.isRequired,
   callback: PropTypes.func.isRequired,
 };
 

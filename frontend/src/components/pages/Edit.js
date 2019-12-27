@@ -2,12 +2,12 @@ import React, { useRef, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import { useParams } from 'react-router-dom';
-import LoadingOverlay from 'react-loading-overlay';
 import { toast } from 'react-toastify';
 
 import Api from '../../services/Api';
 import AWS from '../../services/AWS';
 import Loader from '../UI/Loader';
+import LoadingBlocker from '../UI/LoadingBlocker';
 import CarouselContainer from '../UI/CarouselContainer';
 
 const Edit = () => {
@@ -54,21 +54,7 @@ const Edit = () => {
       <h1>Add Photo</h1>
       {!favorite && <Loader />}
       {favorite && (
-        <LoadingOverlay
-          spinner
-          active={blocking}
-          styles={{
-            overlay: base => ({
-              ...base,
-              background: 'rgba(128, 128, 128, 0.5)',
-            }),
-            wrapper: base => ({
-              ...base,
-              position: 'inherit',
-            }),
-          }}
-          text="Sending file..."
-        >
+        <LoadingBlocker active={blocking} text="Sending file...">
           <div className="img-details">
             <CarouselContainer poster={favorite.data.poster} />
           </div>
@@ -88,7 +74,7 @@ const Edit = () => {
               </span>
             </div>
           </div>
-        </LoadingOverlay>
+        </LoadingBlocker>
       )}
     </Container>
   );

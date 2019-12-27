@@ -19,7 +19,7 @@ const OMDb = {
           if (!response || response.Response) {
             reject(new Error(response.Response));
           } else {
-            resolve(response.data.Search);
+            resolve(response.data.Search || []);
           }
         },
         error => {

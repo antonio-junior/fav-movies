@@ -8,4 +8,7 @@ module.exports = function (server) {
     const FavMovies = require('../api/favmovies/favMoviesService')
     FavMovies.register(api, '/favmovies')
 
+    const AuthService = require('../api/auth/authService')
+    api.post('/login', AuthService.login)
+    api.post('/validateToken', AuthService.validateToken)
 }

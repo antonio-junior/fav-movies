@@ -7,9 +7,11 @@ import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import { faHome, faStar, faChartLine } from '@fortawesome/free-solid-svg-icons';
 
+import UserProfile from '../UI/UserProfile';
 import history from '../../helpers/history';
 import HeaderLink from './HeaderLink';
 import './Header.css';
+import logo from '../../assets/logodark.png';
 
 const Header = props => {
   const inputRef = useRef(null);
@@ -35,8 +37,17 @@ const Header = props => {
   };
 
   return (
-    <Navbar bg="dark" variant="dark">
-      <Navbar.Brand href="#home">Favorite Movies</Navbar.Brand>
+    <Navbar fixed="top" bg="dark" variant="dark">
+      <Navbar.Brand href="#home">
+        <img
+          alt="favmovies"
+          src={logo}
+          width="30"
+          height="30"
+          className="d-inline-block align-top"
+        />{' '}
+        Fav Movies
+      </Navbar.Brand>
 
       <Nav className="mr-auto" activeKey={activeKey} onSelect={handleSelect}>
         <HeaderLink link="/" icon={faHome} text="Home" />
@@ -57,6 +68,8 @@ const Header = props => {
           Search
         </Button>
       </Form>
+
+      <UserProfile />
     </Navbar>
   );
 };

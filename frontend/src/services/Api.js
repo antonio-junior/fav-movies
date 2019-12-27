@@ -1,18 +1,23 @@
 import axios from 'axios';
 import qs from 'qs';
 
-const BASE_URL = 'http://localhost:3003/api/favmovies';
+const API_URL = 'http://localhost:3003/api';
+const BASE_URL = `${API_URL}/favmovies`;
 
 const Api = {
-  getURL() {
-    return BASE_URL;
+  getApiURL() {
+    return API_URL;
   },
 
-  count() {
+  count(email) {
     const COUNT_URL = `${BASE_URL}/count`;
 
     return new Promise((resolve, reject) => {
-      const request = axios.get(COUNT_URL);
+      const request = axios({
+        method: 'POST',
+        url: COUNT_URL,
+        data: qs.stringify({ owner: email }),
+      });
 
       request.then(
         response => {
@@ -71,9 +76,9 @@ const Api = {
     });
   },
 
-  getAll() {
+  getAll(email) {
     return new Promise((resolve, reject) => {
-      const request = axios.get(BASE_URL);
+      const request = axios.get(`${BASE_URL}?owner=${email}`);
 
       request.then(
         response => {
@@ -133,14 +138,14 @@ const Api = {
     });
   },
 
-  getSummary(field) {
+  getSummary(field, owner) {
     const SUMMARY_URL = `${BASE_URL}/summary`;
 
     return new Promise((resolve, reject) => {
       const request = axios({
         method: 'POST',
         url: SUMMARY_URL,
-        data: qs.stringify({ field }),
+        data: { field, owner },
       });
 
       request.then(

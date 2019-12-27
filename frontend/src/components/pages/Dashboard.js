@@ -11,9 +11,12 @@ import {
 import ChartContainer from '../UI/ChartContainer';
 import SummaryCard from '../UI/SummaryCard';
 import Api from '../../services/Api';
+import Auth from '../../services/Auth';
 import Utils from '../../helpers/Utils';
 
 const Dashboard = () => {
+  const emailUser = Auth.getStoredUser().email;
+
   const cbSplitGenres = item => item.genre.split(',').map(x => x.trim());
 
   const countGenres = genres => Object.entries(genres).length;
@@ -26,7 +29,7 @@ const Dashboard = () => {
     return Object.keys(genres).find(key => genres[key] === highestValue);
   };
 
-  const request = Api.getSummary('genre');
+  const request = Api.getSummary('genre', emailUser);
   const getSummaryPromise = apllyInCounts => {
     return new Promise((resolve, reject) => {
       request.then(
@@ -53,7 +56,7 @@ const Dashboard = () => {
         <Col lg>
           <SummaryCard
             icon={faThumbsUp}
-            promise={Api.count()}
+            promise={Api.count(emailUser)}
             text="Favorites"
           />
         </Col>
@@ -74,12 +77,18 @@ const Dashboard = () => {
       </Row>
       <Row>
         <Col>
-          <ChartContainer title="Years" field="year" callback={x => x.year} />
+          <ChartContainer
+            title="Years"
+            owner={emailUser}
+            field="year"
+            callback={x => x.year}
+          />
         </Col>
         <Col>
           <ChartContainer
             title="Genres"
             field="genre"
+            owner={emailUser}
             callback={cbSplitGenres}
           />
         </Col>
