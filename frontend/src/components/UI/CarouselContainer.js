@@ -8,7 +8,7 @@ const CarouselContainer = ({ poster }) => {
   return (
     <Carousel>
       {images.map((imageItem, index) => (
-        <Carousel.Item key={`${imageItem}`}>
+        <Carousel.Item key={`${imageItem}`} interval={2000}>
           <img
             className="d-block w-100"
             src={imageItem}

@@ -28,7 +28,7 @@ const LoadingBlocker = ({ active, text, children }) => {
 LoadingBlocker.propTypes = {
   active: PropTypes.bool.isRequired,
   text: PropTypes.string.isRequired,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
 };
 
 export default LoadingBlocker;

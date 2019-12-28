@@ -1,4 +1,4 @@
-._1qv9 {
+.profile-container {
     align-items: center;
     display: flex;
     flex-direction: row;
@@ -18,21 +18,21 @@
     margin-left: 10px;
 }
 
-._2qgu._2qgu {
-    border-radius: 50%;
-    overflow: hidden;
-}
-._7ql {
-    border-radius: 2px;
-    display: inline;
-    margin: 2px 6px 2px -8px;
-    vertical-align: inherit;
+.profile-container a {
+    color: #fff;
 }
 
-._1m6h {
+.profile-container a:hover {
+    color: #f22;
+}
+    
+.profile-container img {
+    border: 0;
     height: 24px;
     width: 24px;
-}
-img {
-    border: 0;
+    border-radius: 2px;
+    margin: 2px 6px 2px -8px;
+    vertical-align: inherit;
+    border-radius: 50%;
+    overflow: hidden;
 }

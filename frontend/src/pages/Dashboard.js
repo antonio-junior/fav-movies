@@ -8,11 +8,11 @@ import {
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
 
-import ChartContainer from '../UI/ChartContainer';
-import SummaryCard from '../UI/SummaryCard';
-import Api from '../../services/Api';
-import Auth from '../../services/Auth';
-import Utils from '../../helpers/Utils';
+import ChartContainer from '../components/UI/ChartContainer';
+import SummaryCard from '../components/UI/SummaryCard';
+import Api from '../services/Api';
+import Auth from '../services/Auth';
+import Utils from '../helpers/Utils';
 
 const Dashboard = () => {
   const emailUser = Auth.getStoredUser().email;

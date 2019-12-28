@@ -1,19 +1,18 @@
-/* eslint-disable react/prefer-stateless-function */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
 import { toast } from 'react-toastify';
 
-import MovieItem from '../Movies/MovieItem';
+import MovieList from './MovieList';
 import OMDb from '../../services/OMDb';
 import Api from '../../services/Api';
 import Auth from '../../services/Auth';
-import Loader from '../UI/Loader';
-import './ContentContainer.css';
+import { QueryContext } from '../../helpers/QueryStore';
+import './MoviesContainer.css';
 
-const ContentContainer = props => {
-  const { query, isFavorite } = props;
+const MoviesContainer = props => {
+  const { isFavorite } = props;
+  const { query } = React.useContext(QueryContext);
   const loggedEmail = Auth.getStoredUser().email;
 
   const [movies, setMovies] = useState(null);
@@ -25,15 +24,17 @@ const ContentContainer = props => {
 
     const request = OMDb.search(query);
 
-    request.then(res => {
-      const normalizeAttributes = movie =>
-        Object.fromEntries(
-          Object.entries(movie).map(([k, v]) => [k.toLowerCase(), v]),
-        );
+    request
+      .then(res => {
+        const normalizeAttributes = movie =>
+          Object.fromEntries(
+            Object.entries(movie).map(([k, v]) => [k.toLowerCase(), v]),
+          );
 
-      const movieList = res.map(movie => normalizeAttributes(movie));
-      setMovies(movieList);
-    });
+        const movieList = res.map(movie => normalizeAttributes(movie));
+        setMovies(movieList);
+      })
+      .catch(err => toast(err));
   }, [query]);
 
   const [favorites, setFavorites] = useState(null);
@@ -65,50 +66,21 @@ const ContentContainer = props => {
     }
   };
 
-  const showMovies = moviesToShow => {
-    if (moviesToShow == null || favorites == null) {
-      return <Loader />;
-    }
-
-    if (moviesToShow.length === 0) {
-      return 'No movies to show';
-    }
-
-    return moviesToShow.map(({ imdbid, poster, title, _id }) => {
-      const favorite = favorites.find(f => f.imdbid === imdbid);
-      const associatedFavoriteId = favorite ? favorite._id : undefined;
-      return (
-        <MovieItem
-          key={imdbid}
-          poster={poster}
-          title={title}
-          imdbid={imdbid}
-          onClickFavorite={() =>
-            onClickFavorite(imdbid, _id || associatedFavoriteId)
-          }
-          favorite={favorite !== undefined}
-          favoriteid={_id}
-        />
-      );
-    });
-  };
-
   return (
     <Container>
       <h1>{isFavorite ? 'Favorites' : 'Movies'}</h1>
 
-      <Row>{showMovies(isFavorite ? favorites : movies)}</Row>
+      <MovieList
+        movies={isFavorite ? favorites : movies}
+        favorites={favorites}
+        onClickFavorite={onClickFavorite}
+      />
     </Container>
   );
 };
 
-ContentContainer.propTypes = {
-  query: PropTypes.string,
+MoviesContainer.propTypes = {
   isFavorite: PropTypes.bool.isRequired,
 };
 
-ContentContainer.defaultProps = {
-  query: '',
-};
-
-export default ContentContainer;
+export default MoviesContainer;

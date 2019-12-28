@@ -16,8 +16,8 @@ const OMDb = {
 
       request.then(
         response => {
-          if (!response || response.Response) {
-            reject(new Error(response.Response));
+          if (response.status !== 200) {
+            reject(new Error(response.statusText));
           } else {
             resolve(response.data.Search || []);
           }
@@ -37,8 +37,8 @@ const OMDb = {
 
       request.then(
         response => {
-          if (!response || response.Response) {
-            reject(new Error(response.Response));
+          if (response.status !== 200) {
+            reject(new Error(response.statusText));
           } else {
             resolve(response.data);
           }

@@ -4,11 +4,11 @@ import Button from 'react-bootstrap/Button';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import Api from '../../services/Api';
-import AWS from '../../services/AWS';
-import Loader from '../UI/Loader';
-import LoadingBlocker from '../UI/LoadingBlocker';
-import CarouselContainer from '../UI/CarouselContainer';
+import Api from '../services/Api';
+import AWS from '../services/AWS';
+import Loader from '../components/UI/Loader';
+import LoadingBlocker from '../components/UI/LoadingBlocker';
+import CarouselContainer from '../components/UI/CarouselContainer';
 
 const Edit = () => {
   const { favoriteid } = useParams();

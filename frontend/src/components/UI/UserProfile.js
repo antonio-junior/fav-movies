@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import history from '../../helpers/history';
+import history from '../../helpers/History';
 import Auth from '../../services/Auth';
 import './UserProfile.css';
 
@@ -31,16 +31,11 @@ const UserProfile = () => {
   return (
     user && (
       <>
-        <span className="_1qv9">
-          <img
-            className="_2qgu _7ql _1m6h img"
-            src={user.picture}
-            alt={user.name}
-            id="profile_pic_header_100000084947468"
-          />
-          <span className="_1vp5">
+        <span className="profile-container">
+          <img className="img" src={user.picture} alt={user.name} />
+          <span>
             {user.name} |{' '}
-            <Link style={{ color: '#fff' }} to="/" onClick={onClickLogout}>
+            <Link to="/" onClick={onClickLogout}>
               Logout
             </Link>
           </span>

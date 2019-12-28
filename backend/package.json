@@ -8,8 +8,8 @@
   "scripts": {
     "dev": "nodemon",
     "production": "pm2 start src/loader.js --name fav-movies-backend",
-    "build": "netlify-lambda build src",
-    "start": "nodemon src/config/server.js"
+    "lint": "eslint src/*.js",
+    "lint:fix": "eslint --fix src/*.js"
   },
   "keywords": [],
   "engines": {
@@ -28,9 +28,10 @@
     "pm2": "^4.1.2"
   },
   "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "nodemon": "^2.0.0",
-    "netlify-lambda": "^1.6.3",
-    "serverless-http": "^2.3.0",
-    "node-restful": "^0.2.6"
+    "prettier": "^1.19.1"
   }
 }

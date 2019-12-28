@@ -1,33 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
-import ContentContainer from '../Layout/ContentContainer';
-import Header from '../Layout/Header';
-import Dashboard from '../pages/Dashboard';
-import Details from '../pages/Details';
-import Edit from '../pages/Edit';
-import PrivateRoute from '../AuthVerify/PrivateRoute';
+import ContentContainer from './components/Movies/MoviesContainer';
+import Header from './components/Layout/Header';
+import Dashboard from './pages/Dashboard';
+import Details from './pages/Details';
+import Edit from './pages/Edit';
+import PrivateRoute from './helpers/PrivateRoute';
 
-export default function App() {
-  toast.configure();
-
-  const [query, setQuery] = useState('');
-
-  const onSubmit = text => {
-    setQuery(text);
-  };
-
+const Routes = () => {
   return (
     <>
       <PrivateRoute isPage={false}>
-        <Header onSubmit={e => onSubmit(e)} />
+        <Header />
       </PrivateRoute>
       <Switch>
         <Route exact path="/">
           <PrivateRoute>
-            <ContentContainer query={query} isFavorite={false} />
+            <ContentContainer isFavorite={false} />
           </PrivateRoute>
         </Route>
         <Route path="/favorites">
@@ -54,4 +44,6 @@ export default function App() {
       </Switch>
     </>
   );
-}
+};
+
+export default Routes;

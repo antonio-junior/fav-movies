@@ -162,6 +162,31 @@ const Api = {
       );
     });
   },
+
+  getFavoriteId(imdbid, owner) {
+    const SUMMARY_URL = `${BASE_URL}/getid`;
+
+    return new Promise((resolve, reject) => {
+      const request = axios({
+        method: 'POST',
+        url: SUMMARY_URL,
+        data: { imdbid, owner },
+      });
+
+      request.then(
+        response => {
+          if (response.data.errors) {
+            reject({ errors: response.data.errors });
+          } else {
+            resolve(response.data.value);
+          }
+        },
+        error => {
+          reject(new Error(error.message));
+        },
+      );
+    });
+  },
 };
 
 export default Api;

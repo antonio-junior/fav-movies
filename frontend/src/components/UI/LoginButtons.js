@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 import Auth from '../../services/Auth';
 
-const LoginNav = () => {
+const LoginButtons = () => {
   const saveUser = user => {
     Auth.addStoredUser(user);
     window.location.reload();
@@ -56,4 +56,4 @@ const LoginNav = () => {
   );
 };
 
-export default LoginNav;
+export default LoginButtons;

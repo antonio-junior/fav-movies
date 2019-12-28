@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import PropTypes from 'prop-types';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
@@ -7,17 +6,19 @@ import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import { faHome, faStar, faChartLine } from '@fortawesome/free-solid-svg-icons';
 
+import { QueryContext } from '../../helpers/QueryStore';
 import UserProfile from '../UI/UserProfile';
-import history from '../../helpers/history';
+import history from '../../helpers/History';
 import HeaderLink from './HeaderLink';
-import './Header.css';
-import logo from '../../assets/logodark.png';
 
-const Header = props => {
+import logo from '../../assets/logodark.png';
+import './Header.css';
+
+const Header = () => {
   const inputRef = useRef(null);
   const [activeKey, setActiveKey] = useState(history.location.pathname);
 
-  const { onSubmit } = props;
+  const { setQuery } = React.useContext(QueryContext);
 
   const handleSelect = eventKey => {
     setActiveKey(eventKey);
@@ -27,7 +28,7 @@ const Header = props => {
     history.push('/');
     setActiveKey('/');
 
-    onSubmit(inputRef.current.value);
+    setQuery(inputRef.current.value);
   };
 
   const onChangeInput = e => {
@@ -72,10 +73,6 @@ const Header = props => {
       <UserProfile />
     </Navbar>
   );
-};
-
-Header.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
 };
 
 export default Header;
