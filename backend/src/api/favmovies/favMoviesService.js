@@ -1,5 +1,5 @@
-const FavMovies = require('./favMovies');
 const errorHandler = require('../common/errorHandler');
+const FavMovies = require('./favMovies');
 
 FavMovies.methods(['get', 'post', 'put', 'delete']);
 FavMovies.updateOptions({ new: true, runValidators: false });

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 
-import PieChart from './PieChart';
-import Loader from './Loader';
-import Api from '../../services/Api';
 import Utils from '../../helpers/Utils';
+import Api from '../../services/Api';
+import Loader from './Loader';
+import PieChart from './PieChart';
 
 const ChartContainer = ({ title, field, owner, callback }) => {
   const [summary, setSummary] = useState(null);

@@ -1,17 +1,16 @@
+import { faHome, faStar, faChartLine } from '@fortawesome/free-solid-svg-icons';
 import React, { useRef, useState } from 'react';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
-import Button from 'react-bootstrap/Button';
-import { faHome, faStar, faChartLine } from '@fortawesome/free-solid-svg-icons';
-
-import { QueryContext } from '../../helpers/QueryStore';
-import UserProfile from '../UI/UserProfile';
-import history from '../../helpers/History';
-import HeaderLink from './HeaderLink';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 import logo from '../../assets/logodark.png';
+import history from '../../helpers/History';
+import { QueryContext } from '../../helpers/QueryStore';
+import UserProfile from '../UI/UserProfile';
+import HeaderLink from './HeaderLink';
 import './Header.css';
 
 const Header = () => {

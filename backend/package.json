@@ -8,8 +8,8 @@
   "scripts": {
     "dev": "nodemon",
     "production": "pm2 start src/loader.js --name fav-movies-backend",
-    "lint": "eslint src/*.js",
-    "lint:fix": "eslint --fix src/*.js"
+    "lint": "eslint src/**.js",
+    "lint:fix": "eslint --fix src/**/*.js"
   },
   "keywords": [],
   "engines": {
@@ -30,6 +30,7 @@
   "devDependencies": {
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-import-helpers": "^1.0.2",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-prettier": "^3.1.2",
     "nodemon": "^2.0.0",

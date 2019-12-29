@@ -1,12 +1,12 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import ContentContainer from './components/Movies/MoviesContainer';
 import Header from './components/Layout/Header';
+import ContentContainer from './components/Movies/MoviesContainer';
+import PrivateRoute from './helpers/PrivateRoute';
 import Dashboard from './pages/Dashboard';
 import Details from './pages/Details';
 import Edit from './pages/Edit';
-import PrivateRoute from './helpers/PrivateRoute';
 
 const Routes = () => {
   return (

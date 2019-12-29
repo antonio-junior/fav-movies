@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Row from 'react-bootstrap/Row';
-import PropTypes from 'prop-types';
-import MovieItem from './MovieItem';
+
 import Loader from '../UI/Loader';
+import MovieItem from './MovieItem';
 
 const MovieList = ({ movies, favorites, onClickFavorite }) => {
   if (movies == null || favorites == null) {

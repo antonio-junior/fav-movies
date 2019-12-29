@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
 const axios = require('axios');
+const jwt = require('jsonwebtoken');
 
 const URL_PROVIDERS = {
   facebook: 'https://graph.facebook.com/me',

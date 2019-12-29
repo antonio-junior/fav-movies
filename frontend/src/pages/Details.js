@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
-import { useParams } from 'react-router-dom';
-import { Rating } from '@bit/primefaces.primereact.rating';
 import PrimereactStyle from '@bit/primefaces.primereact.internal.stylelinks';
+import { Rating } from '@bit/primefaces.primereact.rating';
+import React, { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+import Heart from '../components/UI/Heart';
+import Loader from '../components/UI/Loader';
 import Api from '../services/Api';
 import Auth from '../services/Auth';
-import Heart from '../components/UI/Heart';
 import OMDb from '../services/OMDb';
-import Loader from '../components/UI/Loader';
 import './Details.css';
 
 const Details = () => {

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import { toast } from 'react-toastify';
 
-import MovieList from './MovieList';
-import OMDb from '../../services/OMDb';
+import { QueryContext } from '../../helpers/QueryStore';
 import Api from '../../services/Api';
 import Auth from '../../services/Auth';
-import { QueryContext } from '../../helpers/QueryStore';
+import OMDb from '../../services/OMDb';
+import MovieList from './MovieList';
 import './MoviesContainer.css';
 
 const MoviesContainer = props => {

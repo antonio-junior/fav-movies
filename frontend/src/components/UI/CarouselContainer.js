@@ -1,6 +1,6 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
-import PropTypes from 'prop-types';
 
 const CarouselContainer = ({ poster }) => {
   const images = poster.split(',');

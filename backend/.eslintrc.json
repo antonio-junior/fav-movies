@@ -13,7 +13,8 @@
         "ecmaVersion": 2020
     },
     "plugins": [
-        "prettier"
+        "prettier",
+        "eslint-plugin-import-helpers"
     ],
     "rules": {
         "node/exports-style": ["error", "module.exports"],
@@ -27,6 +28,18 @@
         "node/prefer-promises/fs": "error",
         "prettier/prettier": "error",
         "no-confusing-arrow": ["error", { "allowParens": true }],
+        "import-helpers/order-imports": [
+            "warn",
+            { // example configuration
+                "newlinesBetween": "always",
+                "groups": [
+                    "module",
+                    "/^@shared/",
+                    ["parent", "sibling", "index"]
+                ],
+                "alphabetize": { "order": "asc", "ignoreCase": true }
+            }
+        ],
         "semi": [
             2,
             "always"

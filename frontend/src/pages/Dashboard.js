@@ -1,18 +1,18 @@
-import React from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import {
   faThumbsUp,
   faTheaterMasks,
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 
 import ChartContainer from '../components/UI/ChartContainer';
 import SummaryCard from '../components/UI/SummaryCard';
+import Utils from '../helpers/Utils';
 import Api from '../services/Api';
 import Auth from '../services/Auth';
-import Utils from '../helpers/Utils';
 
 const Dashboard = () => {
   const emailUser = Auth.getStoredUser().email;

@@ -1,14 +1,14 @@
 import React, { useRef, useState } from 'react';
-import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import Api from '../services/Api';
-import AWS from '../services/AWS';
+import CarouselContainer from '../components/UI/CarouselContainer';
 import Loader from '../components/UI/Loader';
 import LoadingBlocker from '../components/UI/LoadingBlocker';
-import CarouselContainer from '../components/UI/CarouselContainer';
+import Api from '../services/Api';
+import AWS from '../services/AWS';
 
 const Edit = () => {
   const { favoriteid } = useParams();

@@ -1,8 +1,8 @@
-import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
+import React from 'react';
 import Nav from 'react-bootstrap/Nav';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const HeaderLink = props => {
   const { text, icon, link } = props;

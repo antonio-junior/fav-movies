@@ -25,7 +25,8 @@
     "plugins": [
         "react",
         "prettier",
-        "react-hooks"
+        "react-hooks",
+        "eslint-plugin-import-helpers"
     ],
     "rules": {
         "react-hooks/rules-of-hooks": "error",
@@ -37,6 +38,18 @@
         "prefer-promise-reject-errors": "off",
         "no-confusing-arrow": ["error", { "allowParens": true }],
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "import-helpers/order-imports": [
+            "warn",
+            { // example configuration
+                "newlinesBetween": "always",
+                "groups": [
+                    "module",
+                    "/^@shared/",
+                    ["parent", "sibling", "index"]
+                ],
+                "alphabetize": { "order": "asc", "ignoreCase": true }
+            }
+        ],
         "no-underscore-dangle" : [
             "error",
             {

@@ -1,6 +1,6 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Chart, Dataset } from 'react-rainbow-components';
-import PropTypes from 'prop-types';
 
 const containerStyles = {
   maxWidth: 600,

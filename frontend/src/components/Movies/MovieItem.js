@@ -1,12 +1,12 @@
-import React from 'react';
-import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
+import React from 'react';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
 import { Link } from 'react-router-dom';
 
-import Heart from '../UI/Heart';
 import CarouselContainer from '../UI/CarouselContainer';
+import Heart from '../UI/Heart';
 import './MovieItem.css';
 
 const MovieItem = ({ poster, title, imdbid, onClickFavorite, favoriteid }) => {
