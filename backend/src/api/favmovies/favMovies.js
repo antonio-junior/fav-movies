@@ -1,7 +1,8 @@
-const restful = require('node-restful')
-const mongoose = restful.mongoose
+const restful = require('node-restful');
+const mongoose = restful.mongoose;
 
-const movieSchema = new mongoose.Schema({
+const movieSchema = new mongoose.Schema(
+  {
     owner: { type: String, required: true },
     index: { type: Number, required: true },
     title: { type: String, required: true },
@@ -11,9 +12,10 @@ const movieSchema = new mongoose.Schema({
     genre: { type: String, required: true },
     country: { type: String, required: true },
     plot: { type: String, required: true },
-},
-{ 
-    timestamps: { createdAt: 'created_at' } }
-)
+  },
+  {
+    timestamps: { createdAt: 'created_at' },
+  },
+);
 
-module.exports = restful.model('movies', movieSchema)
+module.exports = restful.model('movies', movieSchema);
