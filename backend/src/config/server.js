@@ -1,6 +1,5 @@
 const port = 3003
 
-const serverless = require('serverless-http')
 const bodyParser = require('body-parser')
 const express = require('express')
 const server = express()
@@ -15,4 +14,3 @@ server.listen(port, function() {
 })
 
 module.exports = server
-module.exports.handler = serverless(server);
