@@ -1,7 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
 
-const API_URL = 'http://localhost:3003/api';
+const API_URL = process.env.API_URL;
 const BASE_URL = `${API_URL}/favmovies`;
 
 const Api = {
