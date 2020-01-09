@@ -1,2 +1,2 @@
 web: node backend/src/loader.js
-front: cd frontend && bin/boot
+front: cd frontend && http-server -p $PORT
