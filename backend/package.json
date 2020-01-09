@@ -6,7 +6,7 @@
   "author": "Antônio Junior <acsjunior1@gmail.com>",
   "main": "src/loader.js",
   "scripts": {
-    "dev": "nodemon",
+    "dev": "nodemon src/loader.js",
     "production": "pm2 start src/loader.js --name fav-movies-backend",
     "lint": "eslint src/**.js",
     "lint:fix": "eslint --fix src/**/*.js"

@@ -1,0 +1,17 @@
+{
+  "name": "favmovies",
+  "description": "favmovies",
+  "version": "1.0.0",
+  "license": "ISC",
+  "author": "Antônio Junior <acsjunior1@gmail.com>",
+  "scripts": {
+    "heroku-prebuild": "cd backend && npm install && cd .. && cd frontend && npm install"
+  },
+  "keywords": [],
+  "engines": {
+    "node": ">= 12.13.0",
+    "npm": ">= 2.15.8"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
