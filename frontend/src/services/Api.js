@@ -1,5 +1,4 @@
 import axios from 'axios';
-import qs from 'qs';
 
 const { API_URL } = process.env;
 const BASE_URL = `${API_URL}/favmovies`;
@@ -16,7 +15,7 @@ const Api = {
       const request = axios({
         method: 'POST',
         url: COUNT_URL,
-        data: qs.stringify({ owner: email }),
+        data: { owner: email },
       });
 
       request.then(
