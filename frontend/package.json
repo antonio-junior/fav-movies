@@ -54,9 +54,7 @@
     "style-loader": "^1.0.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.9.0"
-  },
-  "devDependencies": {
+    "webpack-dev-server": "^3.9.0",
     "eslint": "^6.6.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.7.0",
@@ -67,6 +65,8 @@
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "prettier": "^1.19.1"
+  },
+  "devDependencies": {
   },
   "browserslist": {
     "production": [
