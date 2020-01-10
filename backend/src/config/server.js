@@ -10,11 +10,11 @@ server.use(bodyParser.json());
 server.use(allowCors);
 
 // the __dirname is the current directory from where the script is running
-server.use(express.static(__dirname));
+server.use(express.static(__dirname + '/../frontend/dist'));
 
 // send the user to index html page
 server.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'index.html'));
+  res.sendFile(path.resolve(__dirname + '/../frontend/dist', 'index.html'));
 });
 
 server.listen(port, function() {
