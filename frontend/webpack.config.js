@@ -1,12 +1,14 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
   output: {
-    path: __dirname + '/public',
-    filename: 'app.js'
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'app.js',
+    publicPath: '/'
   },
   devServer: {
     port: 8080,
@@ -26,6 +28,7 @@ module.exports = {
     new Dotenv({
       path: './.env',
     }),
+    new CleanWebpackPlugin(),
   ],
   module: {
     rules: [

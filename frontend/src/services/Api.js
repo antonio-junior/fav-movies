@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const { API_URL } = process.env;
+const API_URL = process.env.API_URL_v1;
 const BASE_URL = `${API_URL}/favmovies`;
 
 const Api = {
