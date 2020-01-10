@@ -7,7 +7,7 @@
   "author": "Antônio Junior <acsjunior1@gmail.com>",
   "scripts": {
     "dev": "webpack-dev-server --progress --colors --inline --hot --host 0.0.0.0",
-    "production": "NODE_ENV=production webpack --progress -p",
+    "production": "webpack --progress -p",
     "lint": "eslint src/**/*.js",
     "lint:fix": "eslint --fix src/**/*.js",
     "check": "depcheck ."
