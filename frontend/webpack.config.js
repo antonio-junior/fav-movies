@@ -21,6 +21,11 @@ module.exports = {
       modules: `${__dirname}/node_modules`,
     },
   },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'app.css',
