@@ -5,7 +5,8 @@
   "license": "ISC",
   "author": "Antônio Junior <acsjunior1@gmail.com>",
   "scripts": {
-    "heroku-prebuild": "cd backend && npm install && cd .. && cd frontend && npm install"
+    "heroku-prebuild": "cd backend && npm install && cd .. && cd frontend && npm install && cd ..",
+    "heroku-postbuild": "cd frontend && touch .env && webpack -p"
   },
   "keywords": [],
   "engines": {

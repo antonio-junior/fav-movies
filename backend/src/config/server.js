@@ -20,10 +20,10 @@ server.use(express.static(__dirname + '/../../frontend/public'));
 server.use(express.static(__dirname + '/app/frontend/public'));
 
 // send the user to index html page
-/* server.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname + '/../frontend/dist', 'index.html'));
+server.get('/', (req, res) => {
+  res.send("opa");
 });
- */
+
 server.listen(port, function() {
   console.log(`BACKEND is running on port ${port}.`);
 });
