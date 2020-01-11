@@ -10,18 +10,12 @@ server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 server.use(allowCors);
 
-
-// the __dirname is the current directory from where the script is running
-server.use(express.static(__dirname + '/../frontend/dist'));
-server.use(express.static(__dirname + '/../../frontend/dist'));
-server.use(express.static(__dirname + '/app/frontend/dist'));
-server.use(express.static(__dirname + '/../frontend/public'));
-server.use(express.static(__dirname + '/../../frontend/public'));
-server.use(express.static(__dirname + '/app/frontend/public'));
+server.use(express.static(path.join(__dirname, '../../frontend/public')));
+server.use(express.static(path.join(__dirname, '../../frontend/dist')));
 
 // send the user to index html page
 server.get('/', (req, res) => {
-  res.send("opa");
+  res.sendfile('index.html', { root: "../../frontend/public"});
 });
 
 server.listen(port, function() {
