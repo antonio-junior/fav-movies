@@ -15,7 +15,7 @@ server.use(express.static(path.join(__dirname, '../frontend/dist')));
 
 // send the user to index html page
 server.get('/', (req, res) => {
-  res.sendfile('index.html', { root: "../frontend/public"});
+  res.sendfile('index.html', { root: "../app/frontend/public"});
 });
 
 server.listen(port, function() {
