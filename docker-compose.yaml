@@ -1,0 +1,21 @@
+version: '3.3'
+services:
+  backend:
+    build: 
+        context: ./backend
+    environment:
+        REACT_APP_DB_PASS: 
+        REACT_APP_authSecret: 
+    ports:
+        - "3003:3003"
+  frontend:
+    build: 
+        context: ./frontend
+    environment: 
+        OMDB_API_KEY: 
+        AWS_SECRET_KEY: 
+        API_URL_v1: backend:3003/api
+    ports:
+        - "8080:8080"
+    depends_on:
+        - backend
