@@ -10,12 +10,12 @@ server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 server.use(allowCors);
 
-server.use(express.static(path.join(__dirname, '../app/frontend/public')));
-server.use(express.static(path.join(__dirname, '../app/frontend/dist')));
+server.use(express.static(path.join(__dirname, '/app/frontend/public')));
+server.use(express.static(path.join(__dirname, '/app/frontend/dist')));
 
 // send the user to index html page
 server.get('/', (req, res) => {
-  res.sendfile('index.html', { root: "../app/frontend/public"});
+  res.sendFile('index.html', { root: "../app/frontend/public"});
 });
 
 server.listen(port, function() {
