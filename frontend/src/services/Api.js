@@ -5,6 +5,9 @@ const BASE_URL = `${API_URL}/favmovies`;
 
 const Api = {
   getApiURL() {
+    console.log(process.env);
+    console.log(process.env.API_URL_v1);
+    console.log(process.env.API_URL);
     return API_URL;
   },
 
