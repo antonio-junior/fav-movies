@@ -6,4 +6,4 @@ COPY . .
 RUN npm install
 EXPOSE 8080
 RUN touch .env
-CMD [ "npm", "run", "dev"]
+CMD [ "npm", "run", "docker"]
