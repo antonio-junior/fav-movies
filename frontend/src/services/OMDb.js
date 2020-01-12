@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = `http://www.omdbapi.com/?apikey=${process.env.OMDB_API_KEY}`;
+const BASE_URL = `https://www.omdbapi.com/?apikey=${process.env.OMDB_API_KEY}`;
 
 const OMDb = {
   getURL() {

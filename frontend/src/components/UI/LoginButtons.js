@@ -15,9 +15,7 @@ const LoginButtons = () => {
   const responseFacebook = fbuser => {
     const picture = fbuser.picture.data.url;
     const { id, email, accessToken, name } = fbuser;
-console.log(Auth);
-console.log(Api);
-console.log(Api.getApiURL());
+    
     Auth.login('facebook', id, email, accessToken)
       .then(res => {
         const { token } = res.data;
