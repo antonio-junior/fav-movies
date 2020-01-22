@@ -12,12 +12,6 @@ server.use(bodyParser.json());
 server.use(allowCors);
 
 if (heroku) {
-  server.use('*', (req, res) => {
-    if (req.protocol === 'http') {
-      res.redirect('https://' + req.headers.host + req.url);
-    }
-  });
-
   server.use(express.static('/app/frontend/public'));
   server.use(express.static('/app/frontend/dist'));
 
