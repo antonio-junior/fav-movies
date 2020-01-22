@@ -1,9 +1,26 @@
 const axios = require('axios');
 const jwt = require('jsonwebtoken');
 
-const URL_PROVIDERS = {
-  facebook: 'https://graph.facebook.com/me',
-  google: 'https://www.googleapis.com/oauth2/v1/tokeninfo',
+const getTokenChecker = (provider, token) => {
+  const providers = {
+    facebook: {
+      URL: `https://graph.facebook.com/me?access_token=${token}`,
+      method: 'post',
+      header: '',
+    },
+    google: {
+      URL: `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${token}`,
+      method: 'post',
+      header: '',
+    },
+    github: {
+      URL: 'https://api.github.com/user',
+      method: 'get',
+      header: `Bearer ${token}`,
+    },
+  };
+
+  return providers[provider];
 };
 
 const login = (req, res) => {
@@ -12,10 +29,13 @@ const login = (req, res) => {
   const outToken = req.body.outToken || '';
   const provider = req.body.provider || '';
 
-  axios
-    .post(`${URL_PROVIDERS[provider]}?access_token=${outToken}`)
+  const tokenChecker = getTokenChecker(provider, outToken);
+
+  axios[tokenChecker.method](tokenChecker.URL, {
+    headers: { Authorization: tokenChecker.header },
+  })
     .then(response => {
-      if (response.data.success || !response.data.error) {
+      if (response.data.id || response.data.success || !response.data.error) {
         const user = { id: id, email: email };
         const token = jwt.sign(user, process.env.REACT_APP_authSecret, {
           expiresIn: '1 day',
@@ -27,9 +47,7 @@ const login = (req, res) => {
       }
     })
     .catch(err => {
-      return res
-        .status(400)
-        .send({ errors: [err.response.data.error.message] });
+      return res.status(400).send({ errors: [err.response.data.error] });
     });
 };
 

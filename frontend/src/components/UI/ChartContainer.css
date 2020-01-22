@@ -5,3 +5,9 @@
 .col .summary-card {
     height: 345px;
 }
+
+@media (max-width: 992px) {
+    .apexcharts-legend {
+        display: none !important;
+    }
+}

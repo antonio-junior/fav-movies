@@ -76,7 +76,7 @@ const Dashboard = () => {
         </Col>
       </Row>
       <Row>
-        <Col>
+        <Col lg>
           <ChartContainer
             title="Years"
             owner={emailUser}
@@ -84,7 +84,7 @@ const Dashboard = () => {
             callback={x => x.year}
           />
         </Col>
-        <Col>
+        <Col lg>
           <ChartContainer
             title="Genres"
             field="genre"

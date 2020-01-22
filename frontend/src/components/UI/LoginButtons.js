@@ -4,6 +4,7 @@ import GoogleLogin from 'react-google-login';
 import { toast } from 'react-toastify';
 
 import Auth from '../../services/Auth';
+import Firebase from '../../services/Firebase';
 
 const LoginButtons = () => {
   const saveUser = user => {
@@ -35,6 +36,23 @@ const LoginButtons = () => {
       .catch(err => toast(err));
   };
 
+  const onClickLoginGithub = () => {
+    Firebase.login()
+      .then(result => {
+        const { credential, user } = result;
+        const { accessToken } = credential;
+        const { uid: id, email, displayName: name, photoURL: picture } = user;
+
+        Auth.login('github', id, email, accessToken)
+          .then(res => {
+            const { token } = res.data;
+            saveUser({ email, picture, name, token });
+          })
+          .catch(err => toast(err));
+      })
+      .catch(err => toast(err));
+  };
+
   return (
     <>
       <FacebookLogin
@@ -52,6 +70,14 @@ const LoginButtons = () => {
         onFailure={responseGoogle}
         cookiePolicy="single_host_origin"
       />
+
+      <button
+        type="button"
+        style={{ marginTop: '7px' }}
+        onClick={onClickLoginGithub}
+      >
+        Login with Github
+      </button>
     </>
   );
 };
