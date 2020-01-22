@@ -16,7 +16,7 @@ const Routes = () => {
       </PrivateRoute>
       <Switch>
         <Route exact path="/">
-          <PrivateRoute>
+          <PrivateRoute >
             <ContentContainer isFavorite={false} />
           </PrivateRoute>
         </Route>

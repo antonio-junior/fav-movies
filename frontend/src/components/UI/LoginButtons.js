@@ -4,7 +4,6 @@ import GoogleLogin from 'react-google-login';
 import { toast } from 'react-toastify';
 
 import Auth from '../../services/Auth';
-import Api from '../../services/Api';
 
 const LoginButtons = () => {
   const saveUser = user => {
@@ -15,7 +14,7 @@ const LoginButtons = () => {
   const responseFacebook = fbuser => {
     const picture = fbuser.picture.data.url;
     const { id, email, accessToken, name } = fbuser;
-    
+
     Auth.login('facebook', id, email, accessToken)
       .then(res => {
         const { token } = res.data;

@@ -16,7 +16,6 @@ async function maxIndex() {
 
 FavMovies.before('post', async (req, res, next) => {
   const newIndex = (await maxIndex()) + 1;
-  console.log(newIndex);
   req.body.index = newIndex;
   next();
 });

@@ -1,0 +1,7 @@
+.container .col {
+    max-width: 50%;
+}
+
+.col .summary-card {
+    height: 345px;
+}

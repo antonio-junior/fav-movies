@@ -9,6 +9,7 @@ import Loader from '../components/UI/Loader';
 import LoadingBlocker from '../components/UI/LoadingBlocker';
 import Api from '../services/Api';
 import AWS from '../services/AWS';
+import './Edit.css';
 
 const Edit = () => {
   const { favoriteid } = useParams();
@@ -36,7 +37,7 @@ const Edit = () => {
         const newPoster = `${favorite.data.poster}, ${imgURL}`;
         Api.update(favoriteid, { poster: newPoster })
           .then(resp => {
-            toast('Photo added successfully!');
+            toast('Image added successfully!');
             setBlocking(false);
             setFavorite(resp);
             setSelectedFile(null);
@@ -51,7 +52,7 @@ const Edit = () => {
 
   return (
     <Container>
-      <h1>Add Photo</h1>
+      <h1>Add image to AWS S3</h1>
       {!favorite && <Loader />}
       {favorite && (
         <LoadingBlocker active={blocking} text="Sending file...">

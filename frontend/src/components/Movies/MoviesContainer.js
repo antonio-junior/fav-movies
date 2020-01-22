@@ -54,13 +54,13 @@ const MoviesContainer = props => {
         };
 
         Api.insert(info).then(resp => {
-          toast('Favorite added successfully!');
+          toast('Movie added to favorites.');
           setFavorites(favorites.concat(resp.data));
         });
       });
     } else {
       Api.delete(favoriteid).then(
-        toast('Favorite deleted successfully!'),
+        toast('Movie deleted from favorites.'),
         setFavorites(favorites.filter(f => f._id !== favoriteid)),
       );
     }

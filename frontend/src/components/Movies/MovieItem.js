@@ -26,7 +26,7 @@ const MovieItem = ({ poster, title, imdbid, onClickFavorite, favoriteid }) => {
           {favoriteid && (
             <Button variant="secondary" className="button-item">
               <Link style={{ color: '#fff' }} to={`/edit/${favoriteid}`}>
-                Add Photos
+                AWS S3
               </Link>
             </Button>
           )}

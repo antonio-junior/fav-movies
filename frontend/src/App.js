@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import history from './helpers/History';
 import QueryStore from './helpers/QueryStore';
-import Routes from './Routes';
+import Routes from './routes';
 
 export default function App() {
   toast.configure();

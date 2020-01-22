@@ -60,7 +60,7 @@ const Header = () => {
         <FormControl
           type="text"
           onKeyPress={e => onChangeInput(e)}
-          placeholder="Search"
+          placeholder="Search Movie..."
           className="mr-sm-2"
           ref={inputRef}
         />

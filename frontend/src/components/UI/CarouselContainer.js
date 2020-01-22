@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 
+import './ChartContainer.css';
+
 const CarouselContainer = ({ poster }) => {
   const images = poster.split(',');
 
@@ -9,11 +11,13 @@ const CarouselContainer = ({ poster }) => {
     <Carousel>
       {images.map((imageItem, index) => (
         <Carousel.Item key={`${imageItem}`} interval={2000}>
-          <img
-            className="d-block w-100"
-            src={imageItem}
-            alt={`carousel item ${index}`}
-          />
+          <a href={imageItem}>
+            <img
+              className="d-block w-100"
+              src={imageItem}
+              alt={`carousel item ${index}`}
+            />
+          </a>
         </Carousel.Item>
       ))}
     </Carousel>
