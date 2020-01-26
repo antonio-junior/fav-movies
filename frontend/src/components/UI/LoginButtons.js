@@ -1,4 +1,6 @@
 import React from 'react';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import { toast } from 'react-toastify';
@@ -55,29 +57,33 @@ const LoginButtons = () => {
 
   return (
     <>
-      <FacebookLogin
-        appId="3273645149377600"
-        autoLoad={false}
-        fields="name,email,picture"
-        callback={responseFacebook}
-        icon="fa-facebook"
-      />
-
-      <GoogleLogin
-        clientId="94209590891-i1nrno8q1g71cg9k88d1s43b2to9u0ld.apps.googleusercontent.com"
-        buttonText="Login with Google"
-        onSuccess={responseGoogle}
-        onFailure={responseGoogle}
-        cookiePolicy="single_host_origin"
-      />
-
-      <button
-        type="button"
-        style={{ marginTop: '7px' }}
-        onClick={onClickLoginGithub}
-      >
-        Login with Github
-      </button>
+      <Row style={{ justifyContent: 'center' }}>
+        <FacebookLogin
+          appId="3273645149377600"
+          autoLoad={false}
+          fields="name,email,picture"
+          callback={responseFacebook}
+          icon="fa-facebook"
+        />
+      </Row>
+      <Row style={{ justifyContent: 'center' }}>
+        <GoogleLogin
+          clientId="94209590891-i1nrno8q1g71cg9k88d1s43b2to9u0ld.apps.googleusercontent.com"
+          buttonText="Login with Google"
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          cookiePolicy="single_host_origin"
+        />
+      </Row>
+      <Row style={{ justifyContent: 'center' }}>
+        <button
+          type="button"
+          style={{ marginTop: '7px' }}
+          onClick={onClickLoginGithub}
+        >
+          Login with Github
+        </button>
+      </Row>
     </>
   );
 };
