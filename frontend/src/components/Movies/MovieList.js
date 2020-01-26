@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Row from 'react-bootstrap/Row';
+import CardColumns from 'react-bootstrap/CardColumns';
 
 import Loader from '../UI/Loader';
 import MovieItem from './MovieItem';
@@ -15,7 +15,7 @@ const MovieList = ({ movies, favorites, onClickFavorite }) => {
   }
 
   return (
-    <Row>
+    <CardColumns>
       {movies.map(({ imdbid, poster, title, _id }) => {
         let favoriteid = _id;
         let fullPoster = poster;
@@ -36,7 +36,7 @@ const MovieList = ({ movies, favorites, onClickFavorite }) => {
           />
         );
       })}
-    </Row>
+    </CardColumns>
   );
 };
 

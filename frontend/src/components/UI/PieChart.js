@@ -19,7 +19,7 @@ export default class PieChart extends Component {
 
     return (
       <div className="donut">
-        <Chart options={options} series={series} type="pie" width="380" />
+        <Chart options={options} series={series} type="pie" width="100%" />
       </div>
     );
   }

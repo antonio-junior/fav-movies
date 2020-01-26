@@ -37,7 +37,7 @@ const Header = () => {
   };
 
   return (
-    <Navbar fixed="top" bg="dark" variant="dark">
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Navbar.Brand href="#home">
         <img
           alt="favmovies"
@@ -49,27 +49,30 @@ const Header = () => {
         Fav Movies
       </Navbar.Brand>
 
-      <Nav className="mr-auto" activeKey={activeKey} onSelect={handleSelect}>
-        <HeaderLink link="/" icon={faHome} text="Home" />
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav">
+        <Nav className="mr-auto" activeKey={activeKey} onSelect={handleSelect}>
+          <HeaderLink link="/" icon={faHome} text="Home" />
 
-        <HeaderLink link="/favorites" icon={faStar} text="Favorites" />
-        <HeaderLink link="/dashboard" icon={faChartLine} text="Dashboard" />
-      </Nav>
+          <HeaderLink link="/favorites" icon={faStar} text="Favorites" />
+          <HeaderLink link="/dashboard" icon={faChartLine} text="Dashboard" />
+        </Nav>
 
-      <Form inline onSubmit={e => e.preventDefault()}>
-        <FormControl
-          type="text"
-          onKeyPress={e => onChangeInput(e)}
-          placeholder="Search Movie..."
-          className="mr-sm-2"
-          ref={inputRef}
-        />
-        <Button variant="outline-info" onClick={() => submitQuery()}>
-          Search
-        </Button>
-      </Form>
+        <Form inline onSubmit={e => e.preventDefault()}>
+          <FormControl
+            type="text"
+            onKeyPress={e => onChangeInput(e)}
+            placeholder="Search Movie..."
+            className="mr-sm-2"
+            ref={inputRef}
+          />
+          <Button variant="outline-info" onClick={() => submitQuery()}>
+            Search
+          </Button>
+        </Form>
 
-      <UserProfile />
+        <UserProfile />
+      </Navbar.Collapse>
     </Navbar>
   );
 };

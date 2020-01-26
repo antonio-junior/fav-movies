@@ -18,7 +18,7 @@ const ChartContainer = ({ title, field, owner, callback }) => {
   }
 
   return (
-    <div className="summary-card card">
+    <div className="summary-card card" style={{ height: '100%' }}>
       <h2>{title}</h2>
       {!summary && <Loader />}
       {summary && <PieChart summary={summary} />}

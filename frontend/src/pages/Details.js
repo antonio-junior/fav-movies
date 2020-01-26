@@ -2,7 +2,9 @@ import PrimereactStyle from '@bit/primefaces.primereact.internal.stylelinks';
 import { Rating } from '@bit/primefaces.primereact.rating';
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -60,36 +62,48 @@ const Details = () => {
   return (
     <Container>
       <PrimereactStyle />
-      <h1>Details</h1>
       {!movie && <Loader />}
       {movie && (
         <>
-          <div className="img-details">
-            <img src={movie.Poster} alt={movie.Title} />
-          </div>
-          <div className="content-details">
-            <div>
-              <h3>{movie.Title}</h3>
-              <span>
-                <Button onClick={() => window.history.go(-1)}>Back</Button>
-              </span>
-            </div>
-            <br />
-            <Rating
-              value={Math.round(movie.imdbRating)}
-              readonly
-              stars={10}
-              cancel={false}
-            />
-            {favoriteid !== null && (
-              <Heart
-                liked={favoriteid !== ''}
-                onClickFavorite={onClickFavorite}
-              />
-            )}
-            <h4>{movie.Genre.replace(new RegExp(',', 'g'), ' |')}</h4>
-            <p>{movie.Plot}</p>
-          </div>
+          <Row>
+            <Col xs={9} sm={10} md={10} lg={10}>
+              <h1>{movie.Title}</h1>
+            </Col>
+            <Col xs={3} sm={2} md={2} lg={2}>
+              <Button
+                style={{ marginTop: '6px' }}
+                onClick={() => window.history.go(-1)}
+              >
+                Back
+              </Button>
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={4}>
+              <div className="img-details">
+                <img src={movie.Poster} alt={movie.Title} />
+              </div>
+            </Col>
+            <Col sm={8}>
+              <div className="content-details">
+                <br />
+                <Rating
+                  value={Math.round(movie.imdbRating)}
+                  readonly
+                  stars={10}
+                  cancel={false}
+                />
+                {favoriteid !== null && (
+                  <Heart
+                    liked={favoriteid !== ''}
+                    onClickFavorite={onClickFavorite}
+                  />
+                )}
+                <h4>{movie.Genre.replace(new RegExp(',', 'g'), ' |')}</h4>
+                <p>{movie.Plot}</p>
+              </div>
+            </Col>
+          </Row>
         </>
       )}
     </Container>

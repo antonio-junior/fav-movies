@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -56,11 +58,11 @@ const Edit = () => {
       {!favorite && <Loader />}
       {favorite && (
         <LoadingBlocker active={blocking} text="Sending file...">
-          <div className="img-details">
-            <CarouselContainer poster={favorite.data.poster} />
-          </div>
-          <div className="content-details" style={{ paddingLeft: '50px' }}>
-            <div>
+          <Row>
+            <Col sm={4} xs={4}>
+              <CarouselContainer poster={favorite.data.poster} />
+            </Col>
+            <Col sm={8} xs={8}>
               <h3>{favorite.data.title}</h3>
               <span>
                 <input
@@ -69,12 +71,16 @@ const Edit = () => {
                   name="file"
                   onChange={onChooseFile}
                 />
-                <Button onClick={onClickUpload} style={{ marginLeft: '15px' }}>
+                <Button
+                  disabled={selectedFile == null}
+                  onClick={onClickUpload}
+                  style={{ marginLeft: '15px' }}
+                >
                   Upload
                 </Button>
               </span>
-            </div>
-          </div>
+            </Col>
+          </Row>
         </LoadingBlocker>
       )}
     </Container>

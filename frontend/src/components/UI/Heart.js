@@ -8,11 +8,13 @@ import './Heart.css';
 
 const Heart = ({ liked, onClickFavorite }) => {
   return (
-    <FontAwesomeIcon
-      className={`button-item heart-icon ${liked ? 'like' : ''}`}
-      icon={liked ? like : notLike}
-      onClick={onClickFavorite}
-    />
+    <>
+      <FontAwesomeIcon
+        className={`button-item heart-icon ${liked ? 'like' : ''}`}
+        icon={liked ? like : notLike}
+        onClick={onClickFavorite}
+      />
+    </>
   );
 };
 
