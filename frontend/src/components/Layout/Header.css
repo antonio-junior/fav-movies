@@ -5,3 +5,15 @@
 body {
   background-color: #eee !important;
 }
+
+form button {
+  width: 150px;
+}
+
+@media screen and (max-width: 480px) {
+  form button {
+    margin-top: 5px;
+    position: relative;
+    left: calc(50% - 75px);
+  }
+}
