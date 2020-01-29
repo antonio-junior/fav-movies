@@ -99,7 +99,13 @@ const Details = () => {
                     onClickFavorite={onClickFavorite}
                   />
                 )}
-                <h4>{movie.Genre.replace(new RegExp(',', 'g'), ' |')}</h4>
+                <span style={{ display: 'block' }}>
+                  {movie.Year} - {movie.Country} - {movie.Language}
+                </span>
+                <span>{movie.Production}</span>
+                <h4 style={{ marginTop: '5px' }}>
+                  {movie.Genre.replace(new RegExp(',', 'g'), ' |')}
+                </h4>
                 <p>{movie.Plot}</p>
               </div>
             </Col>

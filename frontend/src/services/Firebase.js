@@ -2,7 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 
 const config = {
-  apiKey: 'AIzaSyCr81qdS07NNXydE3JeW_XYyLUlOLBMmV0',
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: 'favmovies-16020.firebaseapp.com',
   projectId: 'favmovies-16020',
 
