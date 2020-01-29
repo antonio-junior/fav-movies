@@ -65,7 +65,7 @@ const LoginButtons = () => {
           icon="fa-facebook"
         />
       </Row>
-      <Row style={{ justifyContent: 'center' }}>
+      <Row>
         <GoogleLogin
           clientId="94209590891-i1nrno8q1g71cg9k88d1s43b2to9u0ld.apps.googleusercontent.com"
           buttonText="Login with Google"
@@ -74,7 +74,7 @@ const LoginButtons = () => {
           cookiePolicy="single_host_origin"
         />
       </Row>
-      <Row style={{ justifyContent: 'center' }}>
+      <Row>
         <button
           type="button"
           style={{ marginTop: '7px' }}
