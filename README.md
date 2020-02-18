@@ -7,7 +7,7 @@ Features:
 - Totally responsive
 - Login using Social Credentials (Google, Facebook, Github)
 - Search for movies
-- View movie information (description, rating, year, gender)
+- View movie details (description, rating, year, gender)
 - Save movies as favorite
 - Remove movies from favorites
 - Associate new images to a movie (using Amazon S3)
