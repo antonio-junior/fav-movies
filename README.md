@@ -1,3 +1,7 @@
+<h1 align="center">
+    <img height="150px" src="https://github.com/antonio-junior/fav-movies/blob/master/frontend/src/assets/logofull.png" />
+</h1>
+
 # Favmovies
 
 Example project using react stack and third party components.
