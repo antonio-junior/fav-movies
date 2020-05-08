@@ -1,3 +1,7 @@
+<h1 align="center">
+    <img height="150px" src="https://github.com/antonio-junior/fav-movies/blob/master/frontend/src/assets/logofull.png" />
+</h1>
+
 # Favmovies
 
 Example project using react stack and third party components.
@@ -7,7 +11,7 @@ Features:
 - Totally responsive
 - Login using Social Credentials (Google, Facebook, Github)
 - Search for movies
-- View movie information (description, rating, year, gender)
+- View movie details (description, rating, year, gender)
 - Save movies as favorite
 - Remove movies from favorites
 - Associate new images to a movie (using Amazon S3)
