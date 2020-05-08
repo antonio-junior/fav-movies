@@ -8,14 +8,16 @@ import CarouselContainer from '../UI/CarouselContainer';
 import Heart from '../UI/Heart';
 import './MovieItem.css';
 
-const MovieItem = ({ poster, title, imdbid, onClickFavorite, favoriteid }) => {
+const MovieItem = ({ poster, title, imdbid, onClickFavorite, favoriteid, hasError }) => {
   return (
     <Card className="summary-card" style={{ width: '18rem' }}>
       <CarouselContainer poster={poster} />
 
       <Card.Body>
         <Card.Title>{title}</Card.Title>
-        <Heart liked={favoriteid !== ''} onClickFavorite={onClickFavorite} />
+        {!hasError && 
+          <Heart liked={favoriteid !== ''} onClickFavorite={onClickFavorite} /> 
+        }
         <Button variant="primary" className="button-item">
           <Link style={{ color: '#fff' }} to={`/movie/${imdbid}`}>
             Details

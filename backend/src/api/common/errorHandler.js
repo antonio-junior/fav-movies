@@ -1,7 +1,13 @@
 const _ = require('lodash');
 
 module.exports = (req, res, next) => {
-  const bundle = res.locals.bundle;
+  const { bundle } = res.locals;
+
+  const parseErrors = nodeRestfulErrors => {
+    const errors = [];
+    _.forIn(nodeRestfulErrors, error => errors.push(error.message));
+    return errors;
+  };
 
   if (bundle.errors) {
     const errors = parseErrors(bundle.errors);
@@ -9,10 +15,4 @@ module.exports = (req, res, next) => {
   } else {
     next();
   }
-};
-
-const parseErrors = nodeRestfulErrors => {
-  const errors = [];
-  _.forIn(nodeRestfulErrors, error => errors.push(error.message));
-  return errors;
 };

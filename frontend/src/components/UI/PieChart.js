@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Chart from 'react-apexcharts';
 
-export default class PieChart extends Component {
+export default class PieChart extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       options: {
-        labels: Object.keys(props.summary),
+        labels: Object.keys(props.data),
       },
-      series: Object.values(props.summary),
+      series: Object.values(props.data),
     };
   }
 
@@ -26,5 +26,5 @@ export default class PieChart extends Component {
 }
 
 PieChart.propTypes = {
-  summary: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
 };

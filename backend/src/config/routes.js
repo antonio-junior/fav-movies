@@ -1,13 +1,15 @@
 const express = require('express');
 
-module.exports = function(server) {
+const AuthService = require('../api/auth/authService');
+const FavMovies = require('../api/favmovies/favMoviesService');
+
+module.exports = server => {
+  server.use('/api/favmovies', AuthService.validateToken);
+
   const api = express.Router();
   server.use('/api', api);
 
-  const FavMovies = require('../api/favmovies/favMoviesService');
   FavMovies.register(api, '/favmovies');
 
-  const AuthService = require('../api/auth/authService');
   api.post('/login', AuthService.login);
-  api.post('/validateToken', AuthService.validateToken);
 };

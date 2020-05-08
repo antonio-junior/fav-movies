@@ -1,5 +1,6 @@
 const restful = require('node-restful');
-const mongoose = restful.mongoose;
+
+const { mongoose } = restful;
 
 const movieSchema = new mongoose.Schema(
   {

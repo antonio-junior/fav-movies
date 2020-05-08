@@ -1,21 +1,32 @@
 import axios from 'axios';
 
+import Auth from './Auth';
+
 const API_URL = process.env.API_URL_v1;
 const BASE_URL = `${API_URL}/favmovies`;
 
-const Api = {
-  getApiURL() {
-    return API_URL;
-  },
+const token = Auth.getStoredUser() ? Auth.getStoredUser().token : null;
+const owner = Auth.getStoredUser() ? Auth.getStoredUser().email : null;
 
-  count(email) {
-    const COUNT_URL = `${BASE_URL}/count`;
+const instance = axios.create({
+  baseURL: BASE_URL,
+  timeout: 5000,
+  headers: {
+    Authorization: `Bearer ${token}`,
+    owner,
+  },
+});
+
+const Api = {
+  login(provider, id, email, outToken) {
+    const LOGIN_URL = `${API_URL}/login`;
 
     return new Promise((resolve, reject) => {
-      const request = axios({
-        method: 'POST',
-        url: COUNT_URL,
-        data: { owner: email },
+      const request = axios.post(LOGIN_URL, {
+        id,
+        email,
+        outToken,
+        provider,
       });
 
       request.then(
@@ -34,10 +45,10 @@ const Api = {
   },
 
   update(id, data) {
-    const UPDATE_URL = `${BASE_URL}/${id}`;
+    const UPDATE_URL = `/${id}`;
 
     return new Promise((resolve, reject) => {
-      const request = axios.put(UPDATE_URL, data);
+      const request = instance.put(UPDATE_URL, data);
 
       request.then(
         response => {
@@ -55,10 +66,10 @@ const Api = {
   },
 
   get(id) {
-    const GET_URL = `${BASE_URL}/${id}`;
+    const GET_URL = `/${id}`;
 
     return new Promise((resolve, reject) => {
-      const request = axios.get(GET_URL);
+      const request = instance.get(GET_URL);
 
       request.then(
         response => {
@@ -75,9 +86,9 @@ const Api = {
     });
   },
 
-  getAll(email) {
+  getAll() {
     return new Promise((resolve, reject) => {
-      const request = axios.get(`${BASE_URL}?owner=${email}`);
+      const request = instance.get();
 
       request.then(
         response => {
@@ -96,7 +107,7 @@ const Api = {
 
   insert(data) {
     return new Promise((resolve, reject) => {
-      const request = axios.post(BASE_URL, data);
+      const request = instance.post(BASE_URL, data);
 
       request.then(
         response => {
@@ -114,13 +125,10 @@ const Api = {
   },
 
   delete(id) {
-    const DELETE_MOVIE_URL = `${BASE_URL}/${id}`;
+    const DELETE_MOVIE_URL = `/${id}`;
 
     return new Promise((resolve, reject) => {
-      const request = axios({
-        method: 'DELETE',
-        url: DELETE_MOVIE_URL,
-      });
+      const request = instance.delete(DELETE_MOVIE_URL);
 
       request.then(
         response => {
@@ -137,40 +145,11 @@ const Api = {
     });
   },
 
-  getSummary(field, owner) {
-    const SUMMARY_URL = `${BASE_URL}/summary`;
+  getFavoriteId(imdbid) {
+    const SUMMARY_URL = `/getid`;
 
     return new Promise((resolve, reject) => {
-      const request = axios({
-        method: 'POST',
-        url: SUMMARY_URL,
-        data: { field, owner },
-      });
-
-      request.then(
-        response => {
-          if (response.data.errors) {
-            reject({ errors: response.data.errors });
-          } else {
-            resolve(response);
-          }
-        },
-        error => {
-          reject(new Error(error.message));
-        },
-      );
-    });
-  },
-
-  getFavoriteId(imdbid, owner) {
-    const SUMMARY_URL = `${BASE_URL}/getid`;
-
-    return new Promise((resolve, reject) => {
-      const request = axios({
-        method: 'POST',
-        url: SUMMARY_URL,
-        data: { imdbid, owner },
-      });
+      const request = instance.post(SUMMARY_URL, { imdbid });
 
       request.then(
         response => {

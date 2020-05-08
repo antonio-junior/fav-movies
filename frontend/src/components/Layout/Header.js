@@ -7,8 +7,8 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
 import logo from '../../assets/logodark.png';
+import { AppContext } from '../../helpers/AppStore';
 import history from '../../helpers/History';
-import { QueryContext } from '../../helpers/QueryStore';
 import UserProfile from '../UI/UserProfile';
 import HeaderLink from './HeaderLink';
 import './Header.css';
@@ -17,7 +17,7 @@ const Header = () => {
   const inputRef = useRef(null);
   const [activeKey, setActiveKey] = useState(history.location.pathname);
 
-  const { setQuery } = React.useContext(QueryContext);
+  const { setQuery } = React.useContext(AppContext);
 
   const handleSelect = eventKey => {
     setActiveKey(eventKey);

@@ -3,51 +3,61 @@ import {
   faTheaterMasks,
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
 import ChartContainer from '../components/UI/ChartContainer';
 import SummaryCard from '../components/UI/SummaryCard';
-import Utils from '../helpers/Utils';
+import { AppContext } from '../helpers/AppStore';
 import Api from '../services/Api';
 import Auth from '../services/Auth';
 
 const Dashboard = () => {
-  const emailUser = Auth.getStoredUser().email;
+  const { favorites, setFavorites } = useContext(AppContext);
 
-  const cbSplitGenres = item => item.genre.split(',').map(x => x.trim());
+  useEffect(() => {
+    if (!favorites)
+      Api.getAll(Auth.getStoredUser().email)
+        .then(res => setFavorites(res.data.reverse()))
+        .catch(() => {
+          setFavorites([]);
+        });
+  }, [favorites, setFavorites]);
 
-  const countGenres = genres => Object.entries(genres).length;
+  if (!favorites) return null;
 
-  const getFavoriteGenre = genres => {
-    const highestValue = Math.max.apply(
-      null,
-      Array.from(new Map(Object.entries(genres)).values()),
-    );
-    return Object.keys(genres).find(key => genres[key] === highestValue);
-  };
-
-  const request = Api.getSummary('genre', emailUser);
-  const getSummaryPromise = apllyInCounts => {
-    return new Promise((resolve, reject) => {
-      request.then(
-        response => {
-          if (response.data.errors) {
-            reject({ errors: response.data.errors });
-          } else {
-            const result = response.data.value;
-            const counts = Utils.countSummary(result, cbSplitGenres);
-            resolve({ data: { value: apllyInCounts(counts) } });
-          }
-        },
-        error => {
-          reject(new Error(error.message));
-        },
-      );
+  const fieldCount = field => {
+    let fieldWithDuplications = [];
+    favorites.forEach(favorite => {
+      fieldWithDuplications = [
+        ...fieldWithDuplications,
+        ...favorite[field].split(','),
+      ];
     });
+
+    const fieldsCount = {};
+    fieldWithDuplications.forEach(
+      genre =>
+        (fieldsCount[genre] = fieldsCount[genre] ? fieldsCount[genre] + 1 : 1),
+    );
+
+    return fieldsCount;
   };
+
+  const genresCount = fieldCount('genre');
+  const yearsCount = fieldCount('year');
+
+  const allGenres = Object.entries(genresCount);
+
+  const highestValue = Math.max.apply(
+    null,
+    Array.from(new Map(Object.entries(genresCount)).values()),
+  );
+  const favoriteGenre = Object.keys(genresCount).find(
+    key => genresCount[key] === highestValue,
+  );
 
   return (
     <Container>
@@ -56,41 +66,31 @@ const Dashboard = () => {
         <Col lg>
           <SummaryCard
             icon={faThumbsUp}
-            promise={Api.count(emailUser)}
+            data={String(favorites.length)}
             text="Favorites"
           />
         </Col>
         <Col lg>
           <SummaryCard
             icon={faTheaterMasks}
-            promise={getSummaryPromise(countGenres)}
+            data={String(allGenres.length)}
             text="Genres"
           />
         </Col>
         <Col lg>
           <SummaryCard
             icon={faStar}
-            promise={getSummaryPromise(getFavoriteGenre)}
+            data={favoriteGenre}
             text="is the favorite genre"
           />
         </Col>
       </Row>
       <Row>
         <Col lg>
-          <ChartContainer
-            title="Years"
-            owner={emailUser}
-            field="year"
-            callback={x => x.year}
-          />
+          <ChartContainer title="Years" data={yearsCount} />
         </Col>
         <Col lg>
-          <ChartContainer
-            title="Genres"
-            field="genre"
-            owner={emailUser}
-            callback={cbSplitGenres}
-          />
+          <ChartContainer title="Genres" data={genresCount} />
         </Col>
       </Row>
     </Container>

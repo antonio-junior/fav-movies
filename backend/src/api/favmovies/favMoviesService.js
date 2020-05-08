@@ -20,31 +20,9 @@ FavMovies.before('post', async (req, res, next) => {
   next();
 });
 
-FavMovies.route('count', (req, res) => {
-  FavMovies.countDocuments({ owner: req.body.owner }, (error, value) => {
-    if (error) {
-      res.status(500).json({ errors: [error] });
-    } else {
-      res.json({ value });
-    }
-  });
-});
-
-FavMovies.route('summary', (req, res) => {
-  const { field, owner } = req.body;
-  FavMovies.find({ owner })
-    .select(`${field} -_id`)
-    .exec((error, value) => {
-      if (error) {
-        res.status(500).json({ errors: [error] });
-      } else {
-        res.json({ value });
-      }
-    });
-});
-
 FavMovies.route('getid', (req, res) => {
-  const { imdbid, owner } = req.body;
+  const { imdbid } = req.body;
+  const { owner } = req.headers;
   FavMovies.find({ owner, imdbid })
     .select('_id')
     .exec((error, value) => {

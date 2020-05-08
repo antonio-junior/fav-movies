@@ -1,6 +1,6 @@
 import PrimereactStyle from '@bit/primefaces.primereact.internal.stylelinks';
 import { Rating } from '@bit/primefaces.primereact.rating';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 
 import Heart from '../components/UI/Heart';
 import Loader from '../components/UI/Loader';
+import { AppContext } from '../helpers/AppStore';
 import Api from '../services/Api';
 import Auth from '../services/Auth';
 import OMDb from '../services/OMDb';
@@ -17,22 +18,25 @@ import './Details.css';
 
 const Details = () => {
   const { imdbid } = useParams();
-
-  const loggedEmail = Auth.getStoredUser().email;
-
+  const { setFavorites } = useContext(AppContext);
   const [movie, setMovie] = useState(null);
   const [favoriteid, setFavoriteId] = useState(null);
 
-  if (movie == null) OMDb.find(imdbid).then(res => setMovie(res));
-  if (favoriteid == null)
-    Api.getFavoriteId(imdbid, loggedEmail).then(res => {
-      if (res.length > 0) {
-        const [value] = res;
-        setFavoriteId(value._id);
-      } else {
-        setFavoriteId('');
-      }
-    });
+  useEffect(() => {
+    if (movie == null) OMDb.find(imdbid).then(res => setMovie(res));
+  }, [imdbid, movie]);
+
+  useEffect(() => {
+    if (favoriteid == null)
+      Api.getFavoriteId(imdbid).then(res => {
+        if (res.length > 0) {
+          const [value] = res;
+          setFavoriteId(value._id);
+        } else {
+          setFavoriteId('');
+        }
+      });
+  }, [favoriteid, imdbid]);
 
   const onClickFavorite = () => {
     if (!favoriteid) {
@@ -40,7 +44,7 @@ const Details = () => {
         plot: movie.Plot,
         country: movie.Country,
         genre: movie.Genre,
-        owner: loggedEmail,
+        owner: Auth.getStoredUser().email,
         title: movie.Title,
         year: movie.Year,
         poster: movie.Poster,
@@ -50,11 +54,13 @@ const Details = () => {
       Api.insert(info).then(resp => {
         toast('Favorite added successfully!');
         setFavoriteId(resp.data._id);
+        setFavorites(favorites => [...favorites, resp.data]);
       });
     } else {
       Api.delete(favoriteid).then(
         toast('Favorite deleted successfully!'),
         setFavoriteId(''),
+        setFavorites(favorites => favorites.filter(f => f._id !== favoriteid)),
       );
     }
   };

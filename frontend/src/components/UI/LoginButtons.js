@@ -4,8 +4,10 @@ import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import { toast } from 'react-toastify';
 
+import Api from '../../services/Api';
 import Auth from '../../services/Auth';
 import Firebase from '../../services/Firebase';
+import GithubButton from './GithubButton';
 
 const LoginButtons = () => {
   const saveUser = user => {
@@ -13,45 +15,43 @@ const LoginButtons = () => {
     window.location.reload();
   };
 
-  const responseFacebook = fbuser => {
+  const handleApiLogin = async (provider, id, email, accessToken) => {
+    let token = null;
+    try {
+      const apiResponse = await Api.login(provider, id, email, accessToken);
+      token = apiResponse.data.token;
+    } catch (err) {
+      toast(err);
+    }
+
+    return token;
+  };
+
+  const responseFacebook = async fbuser => {
     const picture = fbuser.picture.data.url;
     const { id, email, accessToken, name } = fbuser;
 
-    Auth.login('facebook', id, email, accessToken)
-      .then(res => {
-        const { token } = res.data;
-        saveUser({ email, picture, name, token });
-      })
-      .catch(err => toast(err));
+    const token = await handleApiLogin('facebook', id, email, accessToken);
+    saveUser({ email, picture, name, token });
   };
 
-  const responseGoogle = response => {
+  const responseGoogle = async response => {
     const { accessToken } = response;
-    const { Eea: id, U3: email, ig: name, Paa: picture } = response.w3;
+    const { YU: id, yu: email, Ad: name, fL: picture } = response.Pt;
 
-    Auth.login('google', id, email, accessToken)
-      .then(res => {
-        const { token } = res.data;
-        saveUser({ email, picture, name, token });
-      })
-      .catch(err => toast(err));
+    const token = handleApiLogin('google', id, email, accessToken);
+    saveUser({ email, picture, name, token });
   };
 
-  const onClickLoginGithub = () => {
-    Firebase.login()
-      .then(result => {
-        const { credential, user } = result;
-        const { accessToken } = credential;
-        const { uid: id, email, displayName: name, photoURL: picture } = user;
+  const onClickLoginGithub = async () => {
+    const responseLoginFirebase = await Firebase.login();
 
-        Auth.login('github', id, email, accessToken)
-          .then(res => {
-            const { token } = res.data;
-            saveUser({ email, picture, name, token });
-          })
-          .catch(err => toast(err));
-      })
-      .catch(err => toast(err));
+    const { credential, user } = responseLoginFirebase;
+    const { accessToken } = credential;
+    const { uid: id, email, displayName: name, photoURL: picture } = user;
+
+    const token = handleApiLogin('github', id, email, accessToken);
+    saveUser({ email, picture, name, token });
   };
 
   return (
@@ -75,13 +75,7 @@ const LoginButtons = () => {
         />
       </Row>
       <Row>
-        <button
-          type="button"
-          style={{ marginTop: '7px' }}
-          onClick={onClickLoginGithub}
-        >
-          Login with Github
-        </button>
+        <GithubButton onClick={onClickLoginGithub} />
       </Row>
     </>
   );

@@ -36,7 +36,7 @@ const login = (req, res) => {
   })
     .then(response => {
       if (response.data.id || response.data.success || !response.data.error) {
-        const user = { id: id, email: email };
+        const user = { id, email };
         const token = jwt.sign(user, process.env.REACT_APP_authSecret, {
           expiresIn: '1 day',
         });
@@ -51,12 +51,25 @@ const login = (req, res) => {
     });
 };
 
-const validateToken = (req, res) => {
-  const token = req.body.token || '';
+const validateToken = (req, res, next) => {
+  const { authorization, owner } = req.headers;
+  if (!authorization || !owner) {
+    return res.status(401).json({ message: 'Missing required Header params' });
+  }
 
-  jwt.verify(token, process.env.REACT_APP_authSecret, function(err) {
-    return res.status(200).send({ valid: !err });
+  const token = authorization.split('Bearer ')[1];
+  if (!token) {
+    return res.status(401).json({ message: 'Invalid Token' });
+  }
+
+  jwt.verify(token, process.env.REACT_APP_authSecret, (err, user) => {
+    if (err || user.email !== owner)
+      return res
+        .status(401)
+        .json({ message: 'Requested rescource does not match owner' });
   });
+
+  return next();
 };
 
 module.exports = { login, validateToken };

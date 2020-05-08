@@ -1,15 +1,14 @@
 const port = process.env.PORT || 3003;
 const heroku = process.env.HEROKU;
-
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const express = require('express');
 
 const server = express();
-const allowCors = require('./cors');
 
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
-server.use(allowCors);
+server.use(cors({ origin: true, credentials: true }));
 
 if (heroku) {
   server.use(express.static('/app/frontend/public'));
@@ -20,7 +19,8 @@ if (heroku) {
   });
 }
 
-server.listen(port, function() {
+server.listen(port, () => {
+  // eslint-disable-next-line no-console
   console.log(`BACKEND is running on port ${port}.`);
 });
 

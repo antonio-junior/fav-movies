@@ -1,13 +1,13 @@
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require('path');
 
 module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'app.js',
-    publicPath: '/'
+    publicPath: '/',
   },
   devServer: {
     port: 8080,
@@ -27,7 +27,7 @@ module.exports = {
     new Dotenv({
       path: './.env',
       systemvars: true,
-    })
+    }),
   ],
   module: {
     rules: [
@@ -52,18 +52,6 @@ module.exports = {
           { loader: MiniCssExtractPlugin.loader },
           'css-loader',
         ],
-      },
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        enforce: 'pre',
-        use: {
-          loader: 'eslint-loader',
-          options: {
-            emitWarning: true,
-            configFile: './.eslintrc.json',
-          },
-        },
       },
       {
         test: /\.(js|jsx)$/,

@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import history from './helpers/History';
-import QueryStore from './helpers/QueryStore';
+import AppStore from './helpers/AppStore';
 import Routes from './routes';
 
 export default function App() {
@@ -12,9 +12,9 @@ export default function App() {
 
   return (
     <Router history={history}>
-      <QueryStore>
+      <AppStore>
         <Routes />
-      </QueryStore>
+      </AppStore>
     </Router>
   );
 }

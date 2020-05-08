@@ -5,7 +5,7 @@ import CardColumns from 'react-bootstrap/CardColumns';
 import Loader from '../UI/Loader';
 import MovieItem from './MovieItem';
 
-const MovieList = ({ movies, favorites, onClickFavorite }) => {
+const MovieList = ({ movies, favorites, onClickFavorite, hasError }) => {
   if (movies == null || favorites == null) {
     return <Loader />;
   }
@@ -33,6 +33,7 @@ const MovieList = ({ movies, favorites, onClickFavorite }) => {
             imdbid={imdbid}
             onClickFavorite={() => onClickFavorite(imdbid, favoriteid)}
             favoriteid={favoriteid}
+            hasError={hasError}
           />
         );
       })}

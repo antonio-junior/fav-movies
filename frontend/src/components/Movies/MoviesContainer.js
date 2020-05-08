@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Container from 'react-bootstrap/Container';
 import { toast } from 'react-toastify';
 
-import { QueryContext } from '../../helpers/QueryStore';
+import { AppContext } from '../../helpers/AppStore';
 import Api from '../../services/Api';
 import Auth from '../../services/Auth';
 import OMDb from '../../services/OMDb';
@@ -12,19 +12,17 @@ import './MoviesContainer.css';
 
 const MoviesContainer = props => {
   const { isFavorite } = props;
-  const { query } = React.useContext(QueryContext);
-  const loggedEmail = Auth.getStoredUser().email;
+  const { query, favorites, setFavorites } = useContext(AppContext);
+  const [error, setError] = useState(null);
+  const [movies, setMovies] = useState([]);
 
-  const [movies, setMovies] = useState(null);
   useEffect(() => {
     if (query === '') {
       setMovies([]);
       return;
     }
 
-    const request = OMDb.search(query);
-
-    request
+    OMDb.search(query)
       .then(res => {
         const normalizeAttributes = movie =>
           Object.fromEntries(
@@ -37,9 +35,15 @@ const MoviesContainer = props => {
       .catch(err => toast(err));
   }, [query]);
 
-  const [favorites, setFavorites] = useState(null);
-  if (favorites == null)
-    Api.getAll(loggedEmail).then(res => setFavorites(res.data.reverse()));
+  useEffect(() => {
+    if (!favorites)
+      Api.getAll()
+        .then(res => setFavorites(res.data.reverse()))
+        .catch(e => {
+          setFavorites([]);
+          setError(e);
+        });
+  }, [favorites, setFavorites]);
 
   const onClickFavorite = (imdbid, favoriteid) => {
     if (favorites.find(f => f.imdbid === imdbid) === undefined) {
@@ -49,7 +53,7 @@ const MoviesContainer = props => {
           plot: res.Plot,
           country: res.Country,
           genre: res.Genre,
-          owner: loggedEmail,
+          owner: Auth.getStoredUser().email,
           ...movie,
         };
 
@@ -74,6 +78,7 @@ const MoviesContainer = props => {
         movies={isFavorite ? favorites : movies}
         favorites={favorites}
         onClickFavorite={onClickFavorite}
+        hasError={error != null}
       />
     </Container>
   );
