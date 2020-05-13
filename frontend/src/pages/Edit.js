@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import CarouselContainer from '../components/UI/CarouselContainer';
 import Loader from '../components/UI/Loader';
 import LoadingBlocker from '../components/UI/LoadingBlocker';
+import { AppContext } from '../helpers/AppStore';
 import Api from '../services/Api';
 import AWS from '../services/AWS';
 import './Edit.css';
@@ -16,11 +17,21 @@ import './Edit.css';
 const Edit = () => {
   const { favoriteid } = useParams();
   const [favorite, setFavorite] = useState(null);
+  const { favorites } = useContext(AppContext);
   const [selectedFile, setSelectedFile] = useState(null);
   const [blocking, setBlocking] = useState(false);
   const inputRef = useRef(null);
 
-  if (favorite == null) Api.get(favoriteid).then(res => setFavorite(res));
+  useEffect(() => {
+    if (!favorite) {
+      const favoriteContext = favorites.find(f => f._id === favoriteid);
+      if (!favoriteContext) {
+        Api.get(favoriteid).then(res => setFavorite(res.data));
+      } else {
+        setFavorite(favoriteContext);
+      }
+    }
+  }, [favorite, favoriteid, favorites]);
 
   const onChooseFile = event => {
     const file = event.target.files[0];
@@ -36,12 +47,12 @@ const Edit = () => {
     AWS.addFile(selectedFile)
       .then(res => {
         const imgURL = res.location;
-        const newPoster = `${favorite.data.poster}, ${imgURL}`;
+        const newPoster = `${favorite.poster}, ${imgURL}`;
         Api.update(favoriteid, { poster: newPoster })
           .then(resp => {
             toast('Image added successfully!');
             setBlocking(false);
-            setFavorite(resp);
+            setFavorite(resp.data);
             setSelectedFile(null);
             inputRef.current.value = '';
           })
@@ -60,10 +71,10 @@ const Edit = () => {
         <LoadingBlocker active={blocking} text="Sending file...">
           <Row>
             <Col sm={4} xs={4}>
-              <CarouselContainer poster={favorite.data.poster} />
+              <CarouselContainer poster={favorite.poster} />
             </Col>
             <Col sm={8} xs={8}>
-              <h3>{favorite.data.title}</h3>
+              <h3>{favorite.title}</h3>
               <span>
                 <input
                   ref={inputRef}

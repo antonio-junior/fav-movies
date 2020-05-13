@@ -1,9 +1,11 @@
 import React from 'react';
+import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import { toast } from 'react-toastify';
 
+import anonymousIcon from '../../assets/anonymous.jpg';
 import Api from '../../services/Api';
 import Auth from '../../services/Auth';
 import Firebase from '../../services/Firebase';
@@ -18,8 +20,9 @@ const LoginButtons = () => {
   const handleApiLogin = async (provider, id, email, accessToken) => {
     let token = null;
     try {
-      const apiResponse = await Api.login(provider, id, email, accessToken);
-      token = apiResponse.data.token;
+      const { data } = await Api.login(provider, id, email, accessToken);
+      token = data.token;
+      if (!token) throw new Error('Invalid Token');
     } catch (err) {
       toast(err);
     }
@@ -39,18 +42,24 @@ const LoginButtons = () => {
     const { accessToken } = response;
     const { YU: id, yu: email, Ad: name, fL: picture } = response.Pt;
 
-    const token = handleApiLogin('google', id, email, accessToken);
+    const token = await handleApiLogin('google', id, email, accessToken);
     saveUser({ email, picture, name, token });
   };
 
   const onClickLoginGithub = async () => {
-    const responseLoginFirebase = await Firebase.login();
-
-    const { credential, user } = responseLoginFirebase;
+    const { credential, user } = await Firebase.login();
     const { accessToken } = credential;
     const { uid: id, email, displayName: name, photoURL: picture } = user;
 
-    const token = handleApiLogin('github', id, email, accessToken);
+    const token = await handleApiLogin('github', id, email, accessToken);
+    saveUser({ email, picture, name, token });
+  };
+
+  const onClickAnonymous = async () => {
+    const email = 'anonymous@anonymous.com';
+    const picture = anonymousIcon;
+    const name = 'Anonymous';
+    const token = {};
     saveUser({ email, picture, name, token });
   };
 
@@ -76,6 +85,18 @@ const LoginButtons = () => {
       </Row>
       <Row>
         <GithubButton onClick={onClickLoginGithub} />
+      </Row>
+      <Row style={{ marginTop: '20px', display: 'block' }}>
+        <Button
+          className="btn-info"
+          style={{ fontSize: 'small' }}
+          onClick={onClickAnonymous}
+        >
+          Login as Anonymous
+        </Button>
+        <span style={{ display: 'block', fontSize: 'xx-small' }}>
+          (Favorites and Dashboard are disabled)
+        </span>
       </Row>
     </>
   );

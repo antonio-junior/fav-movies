@@ -45,6 +45,7 @@ MovieList.propTypes = {
   movies: PropTypes.array,
   favorites: PropTypes.array,
   onClickFavorite: PropTypes.func.isRequired,
+  hasError: PropTypes.bool.isRequired,
 };
 
 MovieList.defaultProps = {

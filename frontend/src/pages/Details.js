@@ -23,11 +23,11 @@ const Details = () => {
   const [favoriteid, setFavoriteId] = useState(null);
 
   useEffect(() => {
-    if (movie == null) OMDb.find(imdbid).then(res => setMovie(res));
+    if (!movie) OMDb.find(imdbid).then(res => setMovie(res));
   }, [imdbid, movie]);
 
   useEffect(() => {
-    if (favoriteid == null)
+    if (!favoriteid)
       Api.getFavoriteId(imdbid).then(res => {
         if (res.length > 0) {
           const [value] = res;

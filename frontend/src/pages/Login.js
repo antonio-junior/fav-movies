@@ -13,7 +13,7 @@ const Login = () => {
           alt="favmovies"
           src={logofull}
           className="d-inline-block align-top"
-          style={{ width: '80px', marginBottom: '20px' }}
+          style={{ width: '80px', marginBottom: '20px', paddingBottom: '30px' }}
         />
         <LoginButtons />
       </form>

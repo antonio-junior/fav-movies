@@ -12,8 +12,9 @@ import './MoviesContainer.css';
 
 const MoviesContainer = props => {
   const { isFavorite } = props;
-  const { query, favorites, setFavorites } = useContext(AppContext);
-  const [error, setError] = useState(null);
+  const { query, favorites, setFavorites, hasError, setError } = useContext(
+    AppContext,
+  );
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -43,7 +44,7 @@ const MoviesContainer = props => {
           setFavorites([]);
           setError(e);
         });
-  }, [favorites, setFavorites]);
+  }, [favorites, setError, setFavorites]);
 
   const onClickFavorite = (imdbid, favoriteid) => {
     if (favorites.find(f => f.imdbid === imdbid) === undefined) {
@@ -78,7 +79,7 @@ const MoviesContainer = props => {
         movies={isFavorite ? favorites : movies}
         favorites={favorites}
         onClickFavorite={onClickFavorite}
-        hasError={error != null}
+        hasError={hasError != null}
       />
     </Container>
   );

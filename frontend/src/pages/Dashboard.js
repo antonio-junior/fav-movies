@@ -15,18 +15,21 @@ import Api from '../services/Api';
 import Auth from '../services/Auth';
 
 const Dashboard = () => {
-  const { favorites, setFavorites } = useContext(AppContext);
+  const { favorites, setFavorites, hasError, setError } = useContext(
+    AppContext,
+  );
 
   useEffect(() => {
     if (!favorites)
       Api.getAll(Auth.getStoredUser().email)
         .then(res => setFavorites(res.data.reverse()))
         .catch(() => {
-          setFavorites([]);
+          setError(true);
         });
-  }, [favorites, setFavorites]);
+  }, [favorites, setError, setFavorites]);
 
-  if (!favorites) return null;
+  if (!favorites && !hasError) return null;
+  if (hasError) return 'Dashboard is not available.';
 
   const fieldCount = field => {
     let fieldWithDuplications = [];
@@ -37,13 +40,15 @@ const Dashboard = () => {
       ];
     });
 
-    const fieldsCount = {};
+    const counter = {};
     fieldWithDuplications.forEach(
-      genre =>
-        (fieldsCount[genre] = fieldsCount[genre] ? fieldsCount[genre] + 1 : 1),
+      fieldValue =>
+        (counter[fieldValue] = counter[fieldValue]
+          ? counter[fieldValue] + 1
+          : 1),
     );
 
-    return fieldsCount;
+    return counter;
   };
 
   const genresCount = fieldCount('genre');
