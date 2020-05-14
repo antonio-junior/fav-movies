@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 
-import './SummaryCard.css';
+import './styles.css';
 
 const SummaryCard = ({ icon, data, text }) => {
   return (

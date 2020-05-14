@@ -4,9 +4,9 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 
-import CarouselContainer from '../UI/CarouselContainer';
-import Heart from '../UI/Heart';
-import './MovieItem.css';
+import CarouselContainer from '../../UI/CarouselContainer';
+import Heart from '../../UI/Heart';
+import './styles.css';
 
 const MovieItem = ({
   poster,

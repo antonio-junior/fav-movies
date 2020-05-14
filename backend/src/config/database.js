@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
-const URL = process.env.REACT_APP_DB_URL;
+const URL = process.env.DB_URL;
 module.exports = mongoose
   .connect(URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('connecting to database successful'))

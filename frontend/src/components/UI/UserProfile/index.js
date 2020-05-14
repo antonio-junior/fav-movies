@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import history from '../../helpers/History';
-import Auth from '../../services/Auth';
-import './UserProfile.css';
+import history from '../../../helpers/History';
+import Auth from '../../../services/Auth';
+import './styles.css';
 
 const UserProfile = () => {
   const user = Auth.getStoredUser();

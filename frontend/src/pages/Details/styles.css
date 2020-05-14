@@ -11,4 +11,5 @@
 .p-rating {
     width: 70%;
     float:left;
+    display: contents;
 }

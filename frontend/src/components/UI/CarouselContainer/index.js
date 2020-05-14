@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 
-import './ChartContainer.css';
+import './styles.css';
 
 const CarouselContainer = ({ poster }) => {
   const images = poster.split(',');

@@ -37,14 +37,15 @@ const login = (req, res) => {
     .then(response => {
       if (response.data.id || response.data.success || !response.data.error) {
         const user = { id, email };
-        const token = jwt.sign(user, process.env.REACT_APP_authSecret, {
+
+        const token = jwt.sign(user, process.env.AUTH_SECRET, {
           expiresIn: '1 day',
         });
-
-        res.json({ token });
-      } else {
-        res.status(400).send({ errors: ['error validating access_token'] });
+        return res.json({ token });
       }
+      return res
+        .status(400)
+        .send({ errors: ['error validating access_token'] });
     })
     .catch(err => {
       return res.status(400).send({ errors: [err.response.data.error] });
@@ -52,6 +53,12 @@ const login = (req, res) => {
 };
 
 const validateToken = (req, res, next) => {
+  const { originalUrl } = req;
+
+  if (!originalUrl.startsWith('/api/favmovies')) {
+    return next();
+  }
+
   const { authorization, owner } = req.headers;
   if (!authorization || !owner) {
     return res.status(401).json({ message: 'Missing required Header params' });
@@ -62,12 +69,15 @@ const validateToken = (req, res, next) => {
     return res.status(401).json({ message: 'Invalid Token' });
   }
 
-  jwt.verify(token, process.env.REACT_APP_authSecret, (err, user) => {
-    if (err || user.email !== owner)
+  try {
+    const user = jwt.verify(token, process.env.AUTH_SECRET);
+    if (user.email !== owner)
       return res
         .status(401)
-        .json({ message: 'Requested rescource does not match owner' });
-  });
+        .json({ message: 'Requested resource does not match owner' });
+  } catch (e) {
+    return res.status(401).json({ e });
+  }
 
   return next();
 };

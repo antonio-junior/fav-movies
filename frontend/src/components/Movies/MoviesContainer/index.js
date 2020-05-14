@@ -3,12 +3,12 @@ import React, { useState, useEffect, useContext } from 'react';
 import Container from 'react-bootstrap/Container';
 import { toast } from 'react-toastify';
 
-import { AppContext } from '../../helpers/AppStore';
-import Api from '../../services/Api';
-import Auth from '../../services/Auth';
-import OMDb from '../../services/OMDb';
-import MovieList from './MovieList';
-import './MoviesContainer.css';
+import { AppContext } from '../../../helpers/AppStore';
+import Api from '../../../services/Api';
+import Auth from '../../../services/Auth';
+import OMDb from '../../../services/OMDb';
+import MovieList from '../MovieList';
+import './styles.css';
 
 const MoviesContainer = props => {
   const { isFavorite } = props;

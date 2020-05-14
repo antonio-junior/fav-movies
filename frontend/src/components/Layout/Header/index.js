@@ -6,12 +6,12 @@ import FormControl from 'react-bootstrap/FormControl';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-import logo from '../../assets/logodark.png';
-import { AppContext } from '../../helpers/AppStore';
-import history from '../../helpers/History';
-import UserProfile from '../UI/UserProfile';
-import HeaderLink from './HeaderLink';
-import './Header.css';
+import logo from '../../../assets/logodark.png';
+import { AppContext } from '../../../helpers/AppStore';
+import history from '../../../helpers/History';
+import UserProfile from '../../UI/UserProfile';
+import HeaderLink from '../HeaderLink';
+import './styles.css';
 
 const Header = () => {
   const inputRef = useRef(null);

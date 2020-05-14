@@ -8,11 +8,11 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
-import ChartContainer from '../components/UI/ChartContainer';
-import SummaryCard from '../components/UI/SummaryCard';
-import { AppContext } from '../helpers/AppStore';
-import Api from '../services/Api';
-import Auth from '../services/Auth';
+import ChartContainer from '../../components/UI/ChartContainer';
+import SummaryCard from '../../components/UI/SummaryCard';
+import { AppContext } from '../../helpers/AppStore';
+import Api from '../../services/Api';
+import Auth from '../../services/Auth';
 
 const Dashboard = () => {
   const { favorites, setFavorites, hasError, setError } = useContext(

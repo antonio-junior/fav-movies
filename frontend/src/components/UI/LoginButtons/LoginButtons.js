@@ -5,11 +5,11 @@ import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import { toast } from 'react-toastify';
 
-import anonymousIcon from '../../assets/anonymous.jpg';
-import Api from '../../services/Api';
-import Auth from '../../services/Auth';
-import Firebase from '../../services/Firebase';
-import GithubButton from './GithubButton';
+import anonymousIcon from '../../../assets/anonymous.jpg';
+import Api from '../../../services/Api';
+import Auth from '../../../services/Auth';
+import Firebase from '../../../services/Firebase';
+import GithubButton from '../GithubButton';
 
 const LoginButtons = () => {
   const saveUser = user => {

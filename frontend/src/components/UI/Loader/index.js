@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import gif from '../../assets/loader.gif';
+import gif from '../../../assets/loader.gif';
 
 const Loader = ({ width }) => {
   return (

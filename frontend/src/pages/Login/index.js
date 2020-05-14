@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 
-import logofull from '../assets/logofull.png';
-import LoginButtons from '../components/UI/LoginButtons';
-import './Login.css';
+import logofull from '../../assets/logofull.png';
+import LoginButtons from '../../components/UI/LoginButtons';
+import './styles.css';
 
 const Login = () => {
   return (

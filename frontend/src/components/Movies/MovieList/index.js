@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import CardColumns from 'react-bootstrap/CardColumns';
 
-import Loader from '../UI/Loader';
-import MovieItem from './MovieItem';
+import Loader from '../../UI/Loader';
+import MovieItem from '../MovieItem';
 
 const MovieList = ({ movies, favorites, onClickFavorite, hasError }) => {
   if (movies == null || favorites == null) {

@@ -8,13 +8,13 @@ import Row from 'react-bootstrap/Row';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import Heart from '../components/UI/Heart';
-import Loader from '../components/UI/Loader';
-import { AppContext } from '../helpers/AppStore';
-import Api from '../services/Api';
-import Auth from '../services/Auth';
-import OMDb from '../services/OMDb';
-import './Details.css';
+import Heart from '../../components/UI/Heart';
+import Loader from '../../components/UI/Loader';
+import { AppContext } from '../../helpers/AppStore';
+import Api from '../../services/Api';
+import Auth from '../../services/Auth';
+import OMDb from '../../services/OMDb';
+import './styles.css';
 
 const Details = () => {
   const { imdbid } = useParams();

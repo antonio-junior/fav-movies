@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import PieChart from './PieChart';
+import PieChart from '../PieChart';
 
 const ChartContainer = ({ title, data }) => {
   return (
