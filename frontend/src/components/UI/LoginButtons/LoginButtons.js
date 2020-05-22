@@ -1,3 +1,5 @@
+import passport from 'passport';
+import { Strategy as GitHubStrategy } from 'passport-github';
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
@@ -8,7 +10,6 @@ import { toast } from 'react-toastify';
 import anonymousIcon from '../../../assets/anonymous.jpg';
 import Api from '../../../services/Api';
 import Auth from '../../../services/Auth';
-import Firebase from '../../../services/Firebase';
 import GithubButton from '../GithubButton';
 
 const LoginButtons = () => {
@@ -46,13 +47,24 @@ const LoginButtons = () => {
     saveUser({ email, picture, name, token });
   };
 
+  // passport.use(
+  //   new GitHubStrategy(
+  //     {
+  //       clientID: '47853d5a2fead7c705fb',
+  //       clientSecret: 'GITHUB_CLIENT_SECRET',
+  //     },
+  //     (accessToken, refreshToken, profile, cb) => {
+  //       console.log(accessToken, refreshToken, profile, cb);
+  //     },
+  //   ),
+  // );
   const onClickLoginGithub = async () => {
-    const { credential, user } = await Firebase.login();
-    const { accessToken } = credential;
-    const { uid: id, email, displayName: name, photoURL: picture } = user;
-
-    const token = await handleApiLogin('github', id, email, accessToken);
-    saveUser({ email, picture, name, token });
+    console.log('opa');
+    // const { credential, user } = await Firebase.login();
+    // const { accessToken } = credential;
+    // const { uid: id, email, displayName: name, photoURL: picture } = user;
+    // const token = await handleApiLogin('github', id, email, accessToken);
+    // saveUser({ email, picture, name, token });
   };
 
   const onClickAnonymous = async () => {
@@ -65,32 +77,14 @@ const LoginButtons = () => {
 
   return (
     <>
-      <Row style={{ justifyContent: 'center' }}>
-        <FacebookLogin
-          appId="3273645149377600"
-          autoLoad={false}
-          fields="name,email,picture"
-          callback={responseFacebook}
-          icon="fa-facebook"
-        />
-      </Row>
       <Row>
-        <GoogleLogin
-          clientId="94209590891-i1nrno8q1g71cg9k88d1s43b2to9u0ld.apps.googleusercontent.com"
-          buttonText="Login with Google"
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
-          cookiePolicy="single_host_origin"
-        />
-      </Row>
-      <Row>
-        <GithubButton onClick={onClickLoginGithub} />
+        <GithubButton onClick={() => onClickLoginGithub} />
       </Row>
       <Row style={{ marginTop: '20px', display: 'block' }}>
         <Button
           className="btn-info"
           style={{ fontSize: 'small' }}
-          onClick={onClickAnonymous}
+          onClick={() => onClickAnonymous}
         >
           Login as Anonymous
         </Button>

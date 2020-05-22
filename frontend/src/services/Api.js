@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import Auth from './Auth';
 
-const API_URL = process.env.API_URL_v1;
+const API_URL = process.env.API_ENDPOINT;
 const BASE_URL = `${API_URL}/favmovies`;
 
 const token = Auth.getStoredUser() ? Auth.getStoredUser().token : null;

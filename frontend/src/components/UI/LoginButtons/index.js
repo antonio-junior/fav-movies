@@ -8,8 +8,7 @@ import { toast } from 'react-toastify';
 import anonymousIcon from '../../../assets/anonymous.jpg';
 import Api from '../../../services/Api';
 import Auth from '../../../services/Auth';
-import Firebase from '../../../services/Firebase';
-import GithubButton from '../GithubButton';
+// import GithubButton from '../GithubButton';
 
 const LoginButtons = () => {
   const saveUser = user => {
@@ -46,15 +45,6 @@ const LoginButtons = () => {
     saveUser({ email, picture, name, token });
   };
 
-  const onClickLoginGithub = async () => {
-    const { credential, user } = await Firebase.login();
-    const { accessToken } = credential;
-    const { uid: id, email, displayName: name, photoURL: picture } = user;
-
-    const token = await handleApiLogin('github', id, email, accessToken);
-    saveUser({ email, picture, name, token });
-  };
-
   const onClickAnonymous = async () => {
     const email = 'anonymous@anonymous.com';
     const picture = anonymousIcon;
@@ -72,6 +62,8 @@ const LoginButtons = () => {
           fields="name,email,picture"
           callback={responseFacebook}
           icon="fa-facebook"
+          disableMobileRedirect
+          isMobile={false}
         />
       </Row>
       <Row>
@@ -83,10 +75,16 @@ const LoginButtons = () => {
           cookiePolicy="single_host_origin"
         />
       </Row>
-      <Row>
+      {/* <Row>
         <GithubButton onClick={onClickLoginGithub} />
-      </Row>
-      <Row style={{ marginTop: '20px', display: 'block' }}>
+      </Row> */}
+      <Row
+        style={{
+          marginTop: '20px',
+          justifyContent: 'center',
+          flexDirection: 'column',
+        }}
+      >
         <Button
           className="btn-info"
           style={{ fontSize: 'small' }}
@@ -94,9 +92,9 @@ const LoginButtons = () => {
         >
           Login as Anonymous
         </Button>
-        <span style={{ display: 'block', fontSize: 'xx-small' }}>
+        <div style={{ fontSize: 'xx-small' }}>
           (Favorites and Dashboard are disabled)
-        </span>
+        </div>
       </Row>
     </>
   );

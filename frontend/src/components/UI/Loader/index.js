@@ -6,7 +6,7 @@ import gif from '../../../assets/loader.gif';
 const Loader = ({ width }) => {
   return (
     <div style={{ width: '100%', textAlign: 'center' }}>
-      <img src={gif} alt="loader" width={width} />
+      <img src={gif} alt="loader" width={width} style={{ maxWidth: '100%' }} />
     </div>
   );
 };

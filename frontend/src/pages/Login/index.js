@@ -8,7 +8,7 @@ import './styles.css';
 const Login = () => {
   return (
     <Container className="Login card summary-card">
-      <form>
+      <form className="login-form">
         <img
           alt="favmovies"
           src={logofull}
