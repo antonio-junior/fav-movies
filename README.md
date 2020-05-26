@@ -4,7 +4,7 @@
 
 # Favmovies
 
-Example project using react stack and third party components.
+Monorepo project using react stack and third party components.
 
 Features:
 
@@ -24,6 +24,7 @@ https://favmovies-app.herokuapp.com/
 # Stack
 
 - [npm](https://www.npmjs.com) - Node Package Manager
+- [monorepo-run](https://github.com/Akryum/monorepo-run#readme) - Run scripts in monorepo with colors, streaming and separated panes
 - [ESLint](https://eslint.org/) - JavaScript linting utility
 - [Prettier](https://prettier.io/) - Code formatter
 - [heroku](https://www.heroku.com/) - Platform as a service for deploying and running apps
@@ -33,7 +34,6 @@ https://favmovies-app.herokuapp.com/
 
 - [OMDB](http://www.omdbapi.com/) - RESTful web service to obtain movie information
 - [Amazon AWS S3](https://aws.amazon.com/pt/s3/) - Secure, Durable & Highly-Scalable Object Storage.
-- [Firebase Authentication](https://firebase.google.com/docs/auth/) - Simple, free multi-platform sign-in
 
 ## Backend
 
@@ -54,3 +54,45 @@ https://favmovies-app.herokuapp.com/
 - [axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and node.js
 - [react-toastify](https://fkhadra.github.io/react-toastify/) - React notification
 - [React-ApexChart](https://apexcharts.com/docs/react-charts/) - React Chart wrapper for ApexCharts.js
+
+# Setup
+
+## Docker Compose
+
+1. Fill docker-compose.yaml environment variables.
+
+2. Run Docker Compose
+```
+docker-compose up
+```
+Access default docker-machine ip. Ex: 192.168.99.100 
+
+## Locallly
+
+1. install dependencies:
+```
+npm install
+```
+
+2. Create a .env file from template:
+
+2.1 **backend/.env**:
+```
+DB_URL=mongodb+srv://...
+AUTH_SECRET=
+```
+
+2.2 **frontend/.env**:
+```
+OMDB_API_KEY=
+AWS_SECRET_KEY=
+API_ENDPOINT=http://localhost:3003/api
+```
+
+3. Run
+```
+npm run dev
+```
+
+
+<img height="150px" src="https://github.com/antonio-junior/fav-movies/blob/master/monorepo.png" />

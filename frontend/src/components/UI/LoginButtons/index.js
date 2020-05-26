@@ -39,7 +39,12 @@ const LoginButtons = () => {
 
   const responseGoogle = async response => {
     const { accessToken } = response;
-    const { YU: id, yu: email, Ad: name, fL: picture } = response.Pt;
+    const {
+      googleId: id,
+      email,
+      name,
+      imageUrl: picture,
+    } = response.profileObj;
 
     const token = await handleApiLogin('google', id, email, accessToken);
     saveUser({ email, picture, name, token });
@@ -92,7 +97,7 @@ const LoginButtons = () => {
         >
           Login as Anonymous
         </Button>
-        <div style={{ fontSize: 'xx-small' }}>
+        <div id="anonymous-subtitle" style={{ fontSize: 'xx-small' }}>
           (Favorites and Dashboard are disabled)
         </div>
       </Row>

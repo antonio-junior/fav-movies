@@ -59,4 +59,12 @@ h1 {
     .wrapper > .container {
         height: inherit;
     }
+
+    .row {
+        margin-left: -60px !important;
+    }
+
+    #anonymous-subtitle {
+        padding-left: 50px;
+    }
 }
