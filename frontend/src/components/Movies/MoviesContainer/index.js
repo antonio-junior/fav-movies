@@ -12,9 +12,7 @@ import './styles.css';
 
 const MoviesContainer = props => {
   const { isFavorite } = props;
-  const { query, favorites, setFavorites, hasError, setError } = useContext(
-    AppContext,
-  );
+  const { query, favorites, setFavorites, hasError } = useContext(AppContext);
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -35,16 +33,6 @@ const MoviesContainer = props => {
       })
       .catch(err => toast(err));
   }, [query]);
-
-  useEffect(() => {
-    if (!favorites)
-      Api.getAll()
-        .then(res => setFavorites(res.data.reverse()))
-        .catch(e => {
-          setFavorites([]);
-          setError(e);
-        });
-  }, [favorites, setError, setFavorites]);
 
   const onClickFavorite = (imdbid, favoriteid) => {
     if (favorites.find(f => f.imdbid === imdbid) === undefined) {

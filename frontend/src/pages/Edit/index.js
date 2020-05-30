@@ -65,7 +65,7 @@ const Edit = () => {
 
   return (
     <Container>
-      <h1>Add image to AWS S3</h1>
+      <h1>Upload (AWS S3)</h1>
       {!favorite && <Loader />}
       {favorite && (
         <LoadingBlocker active={blocking} text="Sending file...">
@@ -85,7 +85,7 @@ const Edit = () => {
                 <Button
                   disabled={selectedFile == null}
                   onClick={onClickUpload}
-                  style={{ marginLeft: '15px' }}
+                  style={{ margin: '15px' }}
                 >
                   Upload
                 </Button>

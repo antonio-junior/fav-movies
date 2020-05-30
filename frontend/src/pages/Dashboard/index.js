@@ -3,7 +3,7 @@ import {
   faTheaterMasks,
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -11,22 +11,9 @@ import Row from 'react-bootstrap/Row';
 import ChartContainer from '../../components/UI/ChartContainer';
 import SummaryCard from '../../components/UI/SummaryCard';
 import { AppContext } from '../../helpers/AppStore';
-import Api from '../../services/Api';
-import Auth from '../../services/Auth';
 
 const Dashboard = () => {
-  const { favorites, setFavorites, hasError, setError } = useContext(
-    AppContext,
-  );
-
-  useEffect(() => {
-    if (!favorites)
-      Api.getAll(Auth.getStoredUser().email)
-        .then(res => setFavorites(res.data.reverse()))
-        .catch(() => {
-          setError(true);
-        });
-  }, [favorites, setError, setFavorites]);
+  const { favorites, hasError } = useContext(AppContext);
 
   if (!favorites && !hasError) return null;
   if (hasError) return 'Dashboard is not available.';
@@ -91,7 +78,7 @@ const Dashboard = () => {
         </Col>
       </Row>
       <Row>
-        <Col lg>
+        <Col lg className="column-year-chart">
           <ChartContainer title="Years" data={yearsCount} />
         </Col>
         <Col lg>

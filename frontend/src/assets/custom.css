@@ -43,6 +43,10 @@ h1 {
     text-align: center;
 }
 
+.btn {
+    height: 35px;
+}
+
 @media (max-width: 980px) {
 	html {
         height: -webkit-fill-available;
@@ -58,13 +62,41 @@ h1 {
     
     .wrapper > .container {
         height: inherit;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        display: contents;
     }
 
-    .row {
+    .button-aws {
+        font-size: 1rem;
+    }
+
+    .Login.container {
+        display: block;
+    }
+
+    .summary-card {
+        width: 100% !important;
+    }
+
+    form .row {
         margin-left: -60px !important;
     }
 
     #anonymous-subtitle {
         padding-left: 50px;
+    }
+
+    .column-year-chart {
+        margin-bottom: 10px;
+    }
+
+    .col-lg {
+        padding: 0 !important;
+    }
+
+    .donut {
+        padding-left: 30px;
     }
 }

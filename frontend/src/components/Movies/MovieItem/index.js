@@ -31,9 +31,13 @@ const MovieItem = ({
           </Link>
         </Button>
         {favoriteid && (
-          <Button variant="secondary" className="button-item">
+          <Button
+            variant="secondary"
+            style={{ fontSize: 'smaller' }}
+            className="button-aws button-item"
+          >
             <Link style={{ color: '#fff' }} to={`/edit/${favoriteid}`}>
-              AWS S3
+              Upload Image
             </Link>
           </Button>
         )}

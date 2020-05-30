@@ -2,7 +2,7 @@
     <img height="150px" src="https://github.com/antonio-junior/fav-movies/blob/master/frontend/src/assets/logofull.png" />
 </h1>
 
-# Favmovies
+# Favmovies 
 
 Monorepo project using react stack and third party components.
 
@@ -57,6 +57,12 @@ https://favmovies-app.herokuapp.com/
 
 # Setup
 
+## Prerequisites
+* Node.js
+* NPM
+
+Clone this repo and choose:
+
 ## Docker Compose
 
 1. Fill docker-compose.yaml environment variables.
@@ -86,6 +92,9 @@ AUTH_SECRET=
 ```
 OMDB_API_KEY=
 AWS_SECRET_KEY=
+AWS_BUCKET_NAME=
+AWS_REGION=
+AWS_ACCESS_KEY_ID=
 API_ENDPOINT=http://localhost:3003/api
 ```
 
@@ -94,5 +103,18 @@ API_ENDPOINT=http://localhost:3003/api
 npm run dev
 ```
 
+<img src="https://github.com/antonio-junior/fav-movies/blob/master/monorepo.png" />
 
-<img height="150px" src="https://github.com/antonio-junior/fav-movies/blob/master/monorepo.png" />
+# How to contribute
+
+-   Make a fork;
+-   Create a branck with your feature:  `git checkout -b my-feature`;
+-   Commit changes:  `git commit -m 'feat: My new feature'`;
+-   Make a push to your branch:  `git push origin my-feature`.
+
+After merging your receipt request to done, you can delete a branch from yours.
+
+# License
+This project is under the MIT license. See the [LICENSE](https://github.com/antonio-junior/fav-movies/blob/master/LICENSE) for more information.
+
+----------

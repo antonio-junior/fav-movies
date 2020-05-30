@@ -1,9 +1,9 @@
 import S3FileUpload from 'react-s3';
 
 const config = {
-  bucketName: 'favmovies',
-  region: 'sa-east-1',
-  accessKeyId: 'AKIAVXIVO6TC245AXB6X',
+  bucketName: process.env.AWS_BUCKET_NAME,
+  region: process.env.AWS_REGION,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_KEY,
 };
 

@@ -1,7 +1,7 @@
 FROM node:12 as build-deps
 WORKDIR /usr/src/app
 COPY package*.json ./
-RUN npm install npm@latest -g
+RUN npm install -g npm@6.13.7
 COPY . .
 RUN npm install
 RUN npm run build
