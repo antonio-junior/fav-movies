@@ -2,7 +2,7 @@
     <img height="150px" src="https://github.com/antonio-junior/fav-movies/blob/master/frontend/src/assets/logofull.png" />
 </h1>
 
-# Favmovies 
+# Favmovies :movie_camera: + :heart:
 
 Monorepo project using react stack and third party components.
 
@@ -17,11 +17,11 @@ Features:
 - Associate new images to a movie (using Amazon S3)
 - Dashboard with Favorites Summary (total, movies by year, by gender)
 
-# Link
+# :link: Link
 
 https://favmovies-app.herokuapp.com/
 
-# Stack
+# :rocket: Stack
 
 - [npm](https://www.npmjs.com) - Node Package Manager
 - [monorepo-run](https://github.com/Akryum/monorepo-run#readme) - Run scripts in monorepo with colors, streaming and separated panes
@@ -55,7 +55,7 @@ https://favmovies-app.herokuapp.com/
 - [react-toastify](https://fkhadra.github.io/react-toastify/) - React notification
 - [React-ApexChart](https://apexcharts.com/docs/react-charts/) - React Chart wrapper for ApexCharts.js
 
-# Setup
+# :white_check_mark: Setup
 
 ## Prerequisites
 * Node.js
@@ -105,7 +105,7 @@ npm run dev
 
 <img src="https://github.com/antonio-junior/fav-movies/blob/master/monorepo.png" />
 
-# How to contribute
+# :pencil2: How to contribute
 
 -   Make a fork;
 -   Create a branck with your feature:  `git checkout -b my-feature`;
@@ -114,7 +114,7 @@ npm run dev
 
 After merging your receipt request to done, you can delete a branch from yours.
 
-# License
+# :memo: License
 This project is under the MIT license. See the [LICENSE](https://github.com/antonio-junior/fav-movies/blob/master/LICENSE) for more information.
 
 ----------
