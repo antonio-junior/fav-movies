@@ -37,25 +37,26 @@ const MoviesContainer = props => {
   const onClickFavorite = (imdbid, favoriteid) => {
     if (favorites.find(f => f.imdbid === imdbid) === undefined) {
       const movie = movies.find(m => m.imdbid === imdbid);
-      OMDb.find(imdbid).then(res => {
+      OMDb.find(imdbid).then(({ Plot, Country, Genre }) => {
         const info = {
-          plot: res.Plot,
-          country: res.Country,
-          genre: res.Genre,
+          plot: Plot,
+          country: Country,
+          genre: Genre,
           owner: Auth.getStoredUser().email,
           ...movie,
         };
 
-        Api.insert(info).then(resp => {
+        Api.insert(info).then(({ data }) => {
           toast('Movie added to favorites.');
-          setFavorites(favorites.concat(resp.data));
+          setFavorites(favorites.concat(data));
         });
       });
     } else {
-      Api.delete(favoriteid).then(
-        toast('Movie deleted from favorites.'),
-        setFavorites(favorites.filter(f => f._id !== favoriteid)),
-      );
+      Api.delete(favoriteid).then(res => {
+        console.log(res);
+        toast('Movie deleted from favorites.');
+        setFavorites(favorites.filter(f => f._id !== favoriteid));
+      });
     }
   };
 

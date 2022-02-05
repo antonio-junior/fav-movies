@@ -26,6 +26,28 @@ const AWS = {
       );
     });
   },
+
+  deleteFile(files) {
+    return new Promise((resolve, reject) => {
+      // files.map(file => {
+
+      // })
+      const request = S3FileUpload.deleteFile(files, config);
+
+      request.then(
+        response => {
+          if (!response || response.Errors) {
+            reject(new Error(response.Errors));
+          } else {
+            resolve(response);
+          }
+        },
+        error => {
+          reject(new Error(error.statusText));
+        },
+      );
+    });
+  },
 };
 
 export default AWS;

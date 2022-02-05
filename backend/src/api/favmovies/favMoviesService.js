@@ -14,6 +14,14 @@ async function maxIndex() {
   return req[0].index;
 }
 
+// FavMovies.before('delete', async (req, res, next) => {
+//   const { _id } = req.body;
+//   const movie = await FavMovies.find({ _id });
+//   res.json({ movie });
+
+//   next();
+// });
+
 FavMovies.before('post', async (req, res, next) => {
   const newIndex = (await maxIndex()) + 1;
   req.body.index = newIndex;
